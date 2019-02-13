@@ -11,7 +11,7 @@ Instance::Instance(){}
 
 Instance::Instance(std::vector<Point> v): pareto(v){ }
 
-Point Instance::getPoint(int i){ return this->pareto[i];}
+Point Instance::getPoint(int i){ return pareto[i];}
 
 float Instance::cost_medoids(int i, int iprime){
     float min = FLT_MAX;

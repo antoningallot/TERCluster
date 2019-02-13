@@ -10,13 +10,6 @@ void Point::display(){
     cout << "x:" << x << ", y:" << y << "\n";
 }
 
-float Point::getX(){
-    return this.x;
-}
-
-float Point::getY(){
-    return this.y;
-}
 float Point::distance(Point i){
-    return pow((this.x-i.getX()),2.0)+pow((this.y-i.getY()),2.0)
+    return pow((x-i.x),2.0)+pow((y-i.y),2.0);
 }
