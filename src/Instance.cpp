@@ -8,11 +8,11 @@ using namespace std;
 
 Instance::Instance(){}
 
-    Instance::Instance(std::vector<Point> v): pareto(v){ }
+Instance::Instance(std::vector<Point> v): pareto(v){ }
 
-    Point Instance::getPoint(int i){ return this->pareto[i]}
+Point Instance::getPoint(int i){ return this->pareto[i]}
 
-    float cost_medoids(int i, int iprime){
+    float Instance::cost_medoids(int i, int iprime){
         float min = FLOAT_MAX;
         for(int I = i; I < iprime; I++){
             float sum = 0;
