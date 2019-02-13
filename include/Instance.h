@@ -8,6 +8,7 @@ class Instance {
     int K;
 
     public:
+    Instance();
     Instance(std::vector<Point> v);
     Point getPoint(int i);
     float cost_median(int i, int iprime);
