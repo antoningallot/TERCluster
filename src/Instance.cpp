@@ -59,7 +59,42 @@ float Instance::cost_median(int i, int iprime){
 }
     
 float Instance::cost_dcenter(int i, int iprime){
-        
+    float min = FLT_MAX;
+    for(int j=i; j < iprime; j++){
+        float sum = 0;
+        if(this->getPoint(j).distance(this->getPoint(i))>this->getPoint(j).distance(this->getPoint(iprime))){
+            sum = this->getPoint(j).distance(this->getPoint(i));
+        }
+        else {
+            sum = this->getPoint(j).distance(this->getPoint(iprime));
+        }
+        if (sum < min){
+            min = sum;
+        }
+    }
+    return min;
+}
+
+float Instance::cost_dcenterv2(int i, int iprime){
+    float min = FLT_MAX;
+    int j = i;
+    while(j< iprime){
+        float sum = 0;
+        if(this->getPoint(j).distance(this->getPoint(i))>this->getPoint(j).distance(this->getPoint(iprime))){
+            sum = this->getPoint(j).distance(this->getPoint(i));
+        }
+        else {
+            sum = this->getPoint(j).distance(this->getPoint(iprime));
+        }
+        if (sum < min){
+            min = sum;
+            i += 1;
+        }
+        else{
+            return min;
+        }
+    }
+    return min;
 }
 
 float Instance::cost_ccenter(int i, int iprime){
