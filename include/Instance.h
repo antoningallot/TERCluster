@@ -9,4 +9,5 @@ class Instance {
 
     public:
     Instance();
+    float cost_median(int i, int iprime);
 };
