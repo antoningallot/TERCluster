@@ -15,5 +15,6 @@ class Instance {
     float cost_means(int i, int iprime);
     float cost_medoids(int i, int iprime);
     float cost_dcenter(int i, int iprime);
+    float cost_dcenterv2(int i, int iprime);
     float cost_ccenter(int i, int iprime);
 };
