@@ -2,10 +2,11 @@
 #include <vector>
 #include <cmath>
 #include "Point.h"
+#include "Instance.h"
 
 using namespace std;
 
-class Instance {
+Instance::Instance(){}
 
     Instance::Instance(std::vector<Point> v): pareto(v){ }
 
@@ -54,7 +55,6 @@ class Instance {
                 min = sum;
             }
         }
-        return min;
     }
     
     float cost_dcenter(int i, int iprime){
