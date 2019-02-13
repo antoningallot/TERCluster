@@ -12,4 +12,7 @@ class Point {
     Point();
     Point(float abs, float ord);
     void display();
+    float getX();
+    float getY();
+    float distance(Point i);
 };
