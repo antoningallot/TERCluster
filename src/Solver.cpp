@@ -5,14 +5,14 @@
 
 using namespace std;
 
-Solver::Solver(Instance p, int N, int K) : pareto(p), matrix(boost::extents[N][K]) {}
+Solver::Solver(Instance &p, int N, int K) : pareto(p), matrix(boost::extents[N][K]) {}
 
 
 
 float Solver::min_DP(int i, int k){
         float min = matrix[0][k-1] + pareto.cost_median(1, i);
         for (int j = 2; j < i; j++){
-            float tmp = this->matrix[j-1][k-1] + pareto.cost_median(j, i);
+            float tmp = matrix[j-1][k-1] + pareto.cost_median(j, i);
             if(tmp < min){
                 min = tmp;
             }
@@ -31,6 +31,16 @@ void Solver::DP(int N, int K){
         //return C[N][K];
     }
 
-    float backtrack(vector<vector<float> > compute, vector<vector<float> > C, int N, int K){
-        
+float Solver::backtrack(int N, int K){
+    int i = N;
+    vector<int> res (0);
+    for (int k = K; k > 0; k--){
+        for (int j = 0; j < i; j++){
+            float tmp = matrix[j-1][k-1] + pareto.cost_median(j, i);
+            if(matrix[i][k] == tmp){
+                res.push_back(i);
+                i = j-1; 
+            }
+        }
     }
+}
