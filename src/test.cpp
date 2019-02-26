@@ -7,7 +7,6 @@
 using namespace std;
 
 vector<Point> parsing (int n, string filename) {
-    cout << "Test fonc\n";
     vector<Point> res (0);
     float x, y;
     int taille, dimension, cpt = 0;
@@ -46,9 +45,10 @@ int main (int argc, char *argv[]) {
     vector<Point> v = parsing(6, "data.txt");
     Instance p(v);
     Solver s(p, 6, 2);
+    //s.fillArray();
     s.DP(6, 2);
     s.backtrack(6, 2);
-    display(s.getSolution());
+    //display(s.getSolution());
 
     return 0;
 }

@@ -25,7 +25,7 @@ float Instance::cost_medoids(int i, int iprime){
     }
     return min;
 }
-
+/*
 float Instance::cost_means(int i, int iprime){
     float sum = 0;
     int cpt = 0;
@@ -41,7 +41,7 @@ float Instance::cost_means(int i, int iprime){
         sum+= this->getPoint(I).distance(p);
     }
     return sum;
-}
+}*/
 
 float Instance::cost_median(int i, int iprime){
     float min = FLT_MAX;
