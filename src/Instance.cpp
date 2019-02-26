@@ -23,23 +23,22 @@ float Instance::cost_medoids(int i, int iprime){
             min = sum;
         }
     }
+    min = (1/(iprime-i+1))* min * min;
     return min;
 }
 
 float Instance::cost_means(int i, int iprime){
     float sum = 0;
     int cpt = 0;
-    float x = 0 ;
-    float y = 0;
+    Point p;
     for(int j= i; j < iprime; j++){
-            x += this->getPoint(j).getX();
-            y += this->getPoint(j).getY();
-            cpt += 1;
+        p.addPoint(getPoint(j));
     }
-    Point p(1/(iprime-i+1)*(x/cpt),1/(iprime-i+1)*(y/cpt));
+    p.multInt(1/(iprime-i+1));
     for(int I = i; I < iprime; I++){
         sum+= this->getPoint(I).distance(p);
     }
+    sum = (1/(iprime-i+1))* sum * sum;
     return sum;
 }
 
