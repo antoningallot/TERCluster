@@ -10,4 +10,6 @@ class Point {
     Point(float abs, float ord);
     void display();
     float distance(Point i);
+    void addPoint(Point i);
+    void multInt(int val);
 };

@@ -8,4 +8,4 @@ Instance.o: Point.o Instance.cpp
 	g++ -W -c -I../include Instance.cpp
 
 Point.o: Point.cpp
-		  g++ -W -c -I../include Point.cpp
+		g++ -W -c -I../include Point.cpp

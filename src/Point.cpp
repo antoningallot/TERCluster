@@ -13,3 +13,13 @@ void Point::display(){
 float Point::distance(Point i){
     return pow((x-i.x),2.0)+pow((y-i.y),2.0);
 }
+
+void Point::addPoint(Point i){
+    x = x + i.x;
+    y = y + i.y;
+}
+
+void Point::multInt(int val){
+    x = x * val;
+    y = y * val;
+}
