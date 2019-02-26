@@ -1,5 +1,5 @@
 test: Instance.o Point.o Solver.o
-	g++ -W Instance.o Point.o Solver.o -o test test.cpp
+	g++ -W -I../include Instance.o Point.o Solver.o -o test test.cpp
 
 Solver.o: Instance.o Solver.cpp
 	g++ -W -c -I../include Solver.cpp

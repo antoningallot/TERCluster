@@ -2,7 +2,6 @@
 #include <vector>
 #include <cmath>
 #include <bits/stdc++.h>
-#include "Point.h"
 #include "Instance.h"
 
 using namespace std;
