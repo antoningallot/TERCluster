@@ -26,7 +26,7 @@ float Instance::cost_medoids(int i, int iprime){
     min = (1/(iprime-i+1))* min * min;
     return min;
 }
-/*
+
 float Instance::cost_means(int i, int iprime){
     float sum = 0;
     int cpt = 0;
@@ -40,7 +40,7 @@ float Instance::cost_means(int i, int iprime){
     }
     sum = (1/(iprime-i+1))* sum * sum;
     return sum;
-}*/
+}
 
 float Instance::cost_median(int i, int iprime){
     float min = FLT_MAX;
