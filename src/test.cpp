@@ -45,6 +45,7 @@ int main (int argc, char *argv[]) {
     //blabla
     vector<Point> v = parsing(7, "data.txt");
     Instance p(v);
+    p.initMatrix();
     p.displayMatrix();
     Solver s(p, 7, 3);
     //s.fillArray();
