@@ -12,20 +12,6 @@ Instance::Instance(std::vector<Point> v): pareto(v){ }
 
 Point Instance::getPoint(int i){ return pareto[i];}
 
-float Instance::cost_medoids(int i, int iprime){
-    float min = FLT_MAX;
-    for(int I = i; I < iprime; I++){
-        float sum = 0;
-        for (int j = i; j < iprime; j++){
-            sum += this->getPoint(I).distance(this->getPoint(j));
-        }
-        if (sum < min){
-            min = sum;
-        }
-    }
-    min = (1/(iprime-i+1))* min * min;
-    return min;
-}
 
 float Instance::cost_means(int i, int iprime){
     float sum = 0;
@@ -38,8 +24,23 @@ float Instance::cost_means(int i, int iprime){
     for(int I = i; I < iprime; I++){
         sum+= this->getPoint(I).distance(p);
     }
-    sum = (1/(iprime-i+1))* sum * sum;
+    sum = (1/(iprime-i+1))* sum;
     return sum;
+}
+
+float Instance::cost_medoids(int i, int iprime){
+    float min = FLT_MAX;
+    for(int I = i; I < iprime; I++){
+        float sum = 0;
+        for (int j = i; j < iprime; j++){
+            sum += this->getPoint(I).distance(this->getPoint(j));
+        }
+        if (sum < min){
+            min = sum;
+        }
+    }
+    min = (1/(iprime-i+1))* min;
+    return min;
 }
 
 float Instance::cost_median(int i, int iprime){
@@ -54,6 +55,7 @@ float Instance::cost_median(int i, int iprime){
             min = sum;
         }
     }
+    return min;
 }
     
 float Instance::cost_dcenter(int i, int iprime){
@@ -66,6 +68,7 @@ float Instance::cost_dcenter(int i, int iprime){
         else {
             sum = this->getPoint(j).distance(this->getPoint(iprime));
         }
+        sum = sqrt(sum);
         if (sum < min){
             min = sum;
         }
@@ -84,6 +87,7 @@ float Instance::cost_dcenterv2(int i, int iprime){
         else {
             sum = this->getPoint(j).distance(this->getPoint(iprime));
         }
+        sum = sqrt(sum);
         if (sum < min){
             min = sum;
             i += 1;
