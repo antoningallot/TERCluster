@@ -44,13 +44,14 @@ float Instance::cost_medoids(int i, int iprime){
 }
 
 float Instance::cost_median(int i, int iprime){
+    if (i == iprime) { return 0; }
     float min = FLT_MAX;
-    for(int I = i; I < iprime; I++){
+    for(int I = i; I <= iprime; I++){
         float sum = 0;
-        for (int j = i; j < iprime; j++){
+        for (int j = i; j <= iprime; j++){
             sum += this->getPoint(I).distance(this->getPoint(j));
         }
-        sum = sqrt(sum);
+        //sum = sqrt(sum);
         if (sum < min){
             min = sum;
         }
@@ -58,6 +59,20 @@ float Instance::cost_median(int i, int iprime){
     return min;
 }
     
+void Instance::displayMatrix(){
+    for (int i = 0; i < pareto.size(); i++){
+        for (int j = 0; j < pareto.size(); j++){
+            if (i >= j){ 
+                cout << "0" << " ";
+            } else {
+                cout << this->cost_median(i, j) << " ";
+            }
+        }
+        cout << "\n";
+    }
+    cout << "\n";
+}
+
 float Instance::cost_dcenter(int i, int iprime){
     float min = FLT_MAX;
     for(int j=i; j < iprime; j++){

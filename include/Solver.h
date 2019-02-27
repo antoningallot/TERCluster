@@ -24,4 +24,5 @@ class Solver {
     std::vector<int> getSolution();
     void fillArray();
     void displayMatrix();
+    void initMatrix();
 };

@@ -11,7 +11,7 @@ void Point::display(){
 }
 
 float Point::distance(Point i){
-    return pow((x-i.x),2.0)+pow((y-i.y),2.0);
+    return sqrt(pow((x-i.x),2.0)+pow((y-i.y),2.0));
 }
 
 void Point::addPoint(Point i){

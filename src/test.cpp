@@ -35,6 +35,7 @@ vector<Point> parsing (int n, string filename) {
 
 void display(vector<int> tab) {
     unsigned int i;
+    cout << "Partition de la solution : \n";
     for(i = 0; i < tab.size(); i++){
         cout << tab[i] << "\n";
     }
@@ -42,14 +43,15 @@ void display(vector<int> tab) {
 
 int main (int argc, char *argv[]) {
     //blabla
-    vector<Point> v = parsing(6, "data.txt");
+    vector<Point> v = parsing(7, "data.txt");
     Instance p(v);
-    Solver s(p, 6, 2);
+    p.displayMatrix();
+    Solver s(p, 7, 3);
     //s.fillArray();
-    s.DP(6, 2);
-    s.backtrack(6, 2);
+    s.DP(7, 3);
+    s.backtrack(7, 3);
     s.displayMatrix();
-    //display(s.getSolution());
+    display(s.getSolution());
 
     return 0;
 }
