@@ -23,4 +23,5 @@ class Solver {
     void backtrack(int N, int K);
     std::vector<int> getSolution();
     void fillArray();
+    void displayMatrix();
 };
