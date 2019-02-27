@@ -7,6 +7,8 @@
 typedef boost::multi_array<float, 2> array_type;
 typedef array_type::index index;
 
+// Commentaire pour débuguer le git
+
 class Solver {
     private:
     Instance pareto;
