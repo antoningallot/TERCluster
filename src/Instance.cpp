@@ -16,7 +16,7 @@ Point Instance::getPoint(int i){ return pareto[i];}
 float Instance::cost_means(int i, int iprime){
     float sum = 0;
     int cpt = 0;
-    Point p;
+    Point p(0,0);
     for(int j= i; j < iprime; j++){
         p.addPoint(getPoint(j));
     }
@@ -100,5 +100,5 @@ float Instance::cost_dcenterv2(int i, int iprime){
 }
 
 float Instance::cost_ccenter(int i, int iprime){
-    return 0.5*this->getPoint(i).distance(this->getPoint(iprime));
+    return 0.5*sqrt(this->getPoint(i).distance(this->getPoint(iprime)));
 }
