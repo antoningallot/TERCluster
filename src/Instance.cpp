@@ -21,7 +21,7 @@ Instance::Instance(std::vector<Point> v): pareto(v), N(v.size){
 
 Point Instance::getPoint(int i){ return pareto[i];}
 
-//Calcul avec matrice (à faire)
+//Calcul avec matrice 
 
 float Instance::cost_means(int i, int iprime){
     float sum = 0;
