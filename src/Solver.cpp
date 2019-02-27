@@ -45,7 +45,7 @@ void Solver::DP(int N, int K){
 
 void Solver::backtrack(int N, int K){
     int i = N;
-    for (index k = K-1; k >= 0; k--){
+    for (index k = K-1; k > 0; k--){
         for (index j = 0; j < i; j++){
             float tmp = matrix[j-1][k-1] + pareto.cost_median((int)j, (int)i);
             if(matrix[i][k] == tmp){
