@@ -11,18 +11,22 @@ typedef array_type::index index;
 
 class Solver {
     private:
-    Instance pareto;
-    array_type matrix;
-    std::vector<int> solution;
+    Instance *pareto;
+    array_type *matrix;
+    std::vector<int> *solution;
+    int N;
+    int K;
 
 
     public:
-    Solver(Instance &p, int N, int K);
+    Solver(int n, int k, std::string filename);
+    void displayPareto();
     float min_DP(int i, int k);
-    void DP(int N, int K);
-    void backtrack(int N, int K);
+    void DP();
+    void backtrack();
     std::vector<int> getSolution();
     void fillArray();
     void displayMatrix();
     void initMatrix();
+    void displaySolution();
 };

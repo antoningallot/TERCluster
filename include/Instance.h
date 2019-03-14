@@ -7,16 +7,18 @@ typedef array_type::index idx;
 
 class Instance {
     private:
-    std::vector<Point> pareto;
+    std::vector<Point> *pareto;
     int N;
-    int K;
-    array_type matrix;
+    array_type *matrix;
 
 
     public:
     Instance();
-    Instance(std::vector<Point> v);
+    Instance(int n, std::string filename);
+    std::vector<Point> parsing (int n, std::string filename);
+    void display();
     Point getPoint(int i);
+    int getSize();
     void displayMatrix();
     void initMatrix();
 //Calcul avec matrice    
