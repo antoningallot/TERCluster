@@ -21,7 +21,7 @@ class Instance {
     int getSize();
     void displayMatrix();
     void initMatrix();
-//Calcul avec matrice    
+//Calcul avec matrice
     float cost_median_matrix(int i, int iprime);
     float cost_means_matrix(int i, int iprime);
     float cost_medoids_matrix(int i, int iprime);
