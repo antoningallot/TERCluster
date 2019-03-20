@@ -12,7 +12,7 @@ int main (int argc, char *argv[]) {
     cout << "Contructeur fini\n";
     
     //s.fillArray();
-    s.DP();
+    s.solve();
     s.displayMatrix();
     cout << "C'est là que ça plante ?\n";
     s.backtrack();

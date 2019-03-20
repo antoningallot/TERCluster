@@ -1,8 +1,11 @@
-test: Instance.o Point.o Solver.o
-	g++ -W -I../include Instance.o Point.o Solver.o -o test test.cpp
+test: Solver.o Instance.o Point.o Solver_parent.o
+	g++ -W -I../include Point.o Instance.o Solver.o Solver_parent.o -o test test.cpp
 
-Solver.o: Instance.o Solver.cpp
+Solver.o: Solver_parent.o Solver.cpp
 	g++ -W -c -I../include Solver.cpp
+
+Solver_parent.o: Instance.o Solver_parent.cpp
+	g++ -W -c -I../include Solver_parent.cpp
 
 Instance.o: Point.o Instance.cpp
 	g++ -W -c -I../include Instance.cpp
