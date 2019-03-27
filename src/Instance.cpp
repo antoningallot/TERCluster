@@ -13,6 +13,7 @@ Instance::Instance(){}
 Instance::Instance(int n, string filename) { 
     pareto = new vector<Point>(parsing(n, filename));
     N = pareto->size();
+    // cout << "N : " << N << "\n";
     matrix = new array_type(boost::extents[N][N]);
     initMatrix();
 }
@@ -63,20 +64,6 @@ void Instance::display() {
         (*pareto)[i].display();
     }
 }
-/*
-void Instance::displayMatrix(){
-    for (unsigned int i = 0; i < pareto->size(); i++){
-        for (unsigned int j = 0; j < pareto->size(); j++){
-            if (i >= j){ 
-                cout << "0" << " ";
-            } else {
-                cout << cost_median(i, j) << " ";
-            }
-        }
-        cout << "\n";
-    }
-    cout << "\n";
-}*/
 
 Point Instance::getPoint(int i){ return (*pareto)[i];}
 
