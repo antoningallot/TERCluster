@@ -19,7 +19,7 @@ void Point::addPoint(Point i){
     y = y + i.y;
 }
 
-void Point::multInt(int val){
+void Point::multInt(float val){
     x = x * val;
     y = y * val;
 }

@@ -1,14 +1,14 @@
 #include <vector>
-#include "Solver.h"
+#include "Solver_kmeans.h"
 
 using namespace std;
 
 int main (int argc, char *argv[]) {
-    if(argc != 5){
-        cout << "Need 4 arguments\n";
+    /*if(argc != 5){
+        cout << "Need 5 arguments\n";
     }
     else {
-        int n = atoi(argv[1]);
+        /*int n = atoi(argv[1]);
         int k = atoi(argv[2]);
         string methode = argv[3];
         string filename = argv[4];
@@ -31,7 +31,20 @@ int main (int argc, char *argv[]) {
         s.backtrack(methode_code);
         //s.displayMatrix();
         s.displaySolution();
-    }
+
+
+        
+    }*/
+
+    int n = atoi(argv[1]);
+    int k = atoi(argv[2]);
+    string filename = argv[3];
+    float s = atof(argv[4]);
+    int m = atoi(argv[5]);
+    //cout << n << " " << k << " " << filename << " " << s << " " << m << endl;
+    Solver_kmeans km(n,k,filename,s,m);
+    km.K_means(n,k);
+    km.displaySolution();
 
     return 0;
 }

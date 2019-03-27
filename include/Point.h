@@ -11,5 +11,5 @@ class Point {
     void display();
     float distance(Point i);
     void addPoint(Point i);
-    void multInt(int val);
+    void multInt(float val);
 };
