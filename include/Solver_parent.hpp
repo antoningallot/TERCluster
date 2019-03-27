@@ -5,15 +5,15 @@ class Solver_parent {
     
     protected:
     Instance *pareto;
-    std::vector<int> *solution;
+    std::vector<std::pair<int, int> > *solution;
     int N;
     int K;
 
     public:
     Solver_parent();
     Solver_parent(int n, int k, std::string filename);
-    std::vector<int> getSolution();
+    std::vector<std::pair<int, int> > getSolution();
     void displayPareto();
     void displaySolution();
-    void solve();
+    void solve(int methode);
 };
