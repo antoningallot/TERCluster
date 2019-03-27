@@ -11,6 +11,7 @@ Solver::Solver(int n, int k, string filename){
     pareto = new Instance(n, filename);
     N = pareto->getSize();
     K = k;
+    // cout << "N : " << N << " K : " << K << "\n";
     DP_matrix = new array_type(boost::extents[N+1][K]);
     initMatrix();
     solution = new vector<pair<int, int> >();
@@ -178,13 +179,14 @@ void Solver::backtrack(int methode){
             for (index j = 1; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_median_matrix((int)j-1, i-1);
                 if((*DP_matrix)[i][k] == tmp){
-                    pair = make_pair(i, j-1);
+                    cout << "On entre dans le if\n";
+                    pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;
                 }
             }
         }
-        pair = make_pair(i, 0);
+        pair = make_pair(i-1, 0);
         solution->push_back(pair);
         break;
 
@@ -193,13 +195,13 @@ void Solver::backtrack(int methode){
             for (index j = 1; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_means_matrix((int)j-1, i-1);
                 if((*DP_matrix)[i][k] == tmp){
-                    pair = make_pair(i, j-1);
+                    pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;
                 }
             }
         }
-        pair = make_pair(i, 0);
+        pair = make_pair(i-1, 0);
         solution->push_back(pair);
         break;
 
@@ -208,13 +210,13 @@ void Solver::backtrack(int methode){
             for (index j = 1; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_medoids_matrix((int)j-1, i-1);
                 if((*DP_matrix)[i][k] == tmp){
-                    pair = make_pair(i, j-1);
+                    pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;
                 }
             }
         }
-        pair = make_pair(i, 0);
+        pair = make_pair(i-1, 0);
         solution->push_back(pair);
         break;
 
@@ -223,13 +225,13 @@ void Solver::backtrack(int methode){
             for (index j = 1; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_dcenter_matrix((int)j-1, i-1);
                 if((*DP_matrix)[i][k] == tmp){
-                    pair = make_pair(i, j-1);
+                    pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;
                 }
             }
         }
-        pair = make_pair(i, 0);
+        pair = make_pair(i-1, 0);
         solution->push_back(pair);
         break;
 
@@ -238,13 +240,13 @@ void Solver::backtrack(int methode){
             for (index j = 1; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_dcenterv2_matrix((int)j-1, i-1);
                 if((*DP_matrix)[i][k] == tmp){
-                    pair = make_pair(i, j-1);
+                    pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;
                 }
             }
         }
-        pair = make_pair(i, 0);
+        pair = make_pair(i-1, 0);
         solution->push_back(pair);
         break;
 
@@ -253,13 +255,13 @@ void Solver::backtrack(int methode){
             for (index j = 1; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_ccenter_matrix((int)j-1, i-1);
                 if((*DP_matrix)[i][k] == tmp){
-                    pair = make_pair(i, j-1);
+                    pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;
                 }
             }
         }
-        pair = make_pair(i, 0);
+        pair = make_pair(i-1, 0);
         solution->push_back(pair);
         break;
 

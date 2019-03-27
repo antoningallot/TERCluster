@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "Solver_parent.hpp"
 
 using namespace std;
@@ -31,3 +32,13 @@ void Solver_parent::displaySolution(){
 }
 
 void Solver_parent::solve(int methode){ };
+
+void Solver_parent::write_result(string filename){
+    ofstream file(filename.c_str());
+    if(file.is_open()){
+        for(int i = solution->size()-1; i >= 0; i--){
+            file << (*solution)[i].second << " " << (*solution)[i].first << "\n";
+        }
+        file.close();
+    }
+}

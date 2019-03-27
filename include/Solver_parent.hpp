@@ -16,4 +16,5 @@ class Solver_parent {
     void displayPareto();
     void displaySolution();
     void solve(int methode);
+    void write_result(std::string filename);
 };
