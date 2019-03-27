@@ -12,10 +12,10 @@ Solver_parent::Solver_parent(int n, int k, string filename) {
     pareto = new Instance(n, filename);
     N = pareto->getSize();
     K = k;
-    solution = new vector<int>();
+    solution = new vector<pair<int, int> >();
 }
 
-vector<int> Solver_parent::getSolution(){
+vector<pair<int, int> > Solver_parent::getSolution(){
     return *solution;
 }
 
@@ -25,9 +25,9 @@ void Solver_parent::displayPareto(){
 
 void Solver_parent::displaySolution(){
     for(int i = 0; i < solution->size(); i++){
-        cout << (*solution)[i] << " ";
+        cout << (*solution)[i].first << " " << (*solution)[i].second << "\n";
     }
-    cout << "\n";
+    // cout << "\n";
 }
 
-void Solver_parent::solve(){ };
+void Solver_parent::solve(int methode){ };

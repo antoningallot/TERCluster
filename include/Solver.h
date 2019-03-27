@@ -17,8 +17,8 @@ class Solver : public Solver_parent {
     Solver(int n, int k, std::string filename);
     void initMatrix();
     void displayMatrix();
-    float min_DP(int i, int k);
-    void solve();
-    void backtrack();
+    float min_DP(int i, int k, int methode);
+    void solve(int methode);
+    void backtrack(int methode);
     
 };

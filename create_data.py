@@ -106,28 +106,30 @@ def mult_instances_convex(N, a, b, alpha, p):
     for i in range(p):
         data = generate_coords_convex(N, a, b, alpha)
         create_file_convex(N, a, b, alpha, data, i)
-    display(data)
+    #display(data)
     
 def mult_instances_concav(N, a, b, alpha, p):
     for i in range(p):
         data = generate_coords_concav(N, a, b, alpha)
         create_file_concav(N, a, b, alpha, data, i)
-    display(data)
+    #display(data)
 
 def mult_instances_alea(N, A, B, p):
     for i in range(p):
         data = generate_coords_alea(N, A, B)
         create_file_alea(N, A, B, data, i)
-    display(data)
+    #display(data)
 
 def mult_instances_alea_box(N, A, B, p):
     for i in range(p):
         data = generate_coords_alea_box(N, A, B)
         create_file_alea_box(N, A, B, data, i)
-    display(data)
+    #display(data)
 
 def create_data(N, a, b, alpha, A, B, p):
     mult_instances_convex(N, a, b, alpha, p)
     mult_instances_concav(N, a, b, alpha, p)
     mult_instances_alea(N, A, B, p)
     mult_instances_alea_box(N, A, B, p)
+
+create_data(100, 0, 100, 0.5, 100, 100, 5)
