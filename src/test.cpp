@@ -13,16 +13,16 @@ void rtrim(string &s) {
 }
 
 vector<string> get_filenames(experimental::filesystem::path path){
-    namespace stdfs = experimental::filesystem ;
+    namespace stdfs = experimental::filesystem;
 
-    vector<string> filenames ;
+    vector<string> filenames;
     
-    const stdfs::directory_iterator end{} ;
+    const stdfs::directory_iterator end{};
     
-    for( stdfs::directory_iterator iter{path} ; iter != end ; ++iter )
+    for( stdfs::directory_iterator iter{path}; iter != end; ++iter )
     {
         if( is_regular_file(*iter) ) // comment out if all names (names of directories tc.) are required
-            filenames.push_back( iter->path().string() ) ;
+            filenames.push_back( iter->path().string() );
     }
 
     return filenames;
@@ -86,7 +86,7 @@ int main (int argc, char *argv[]) {
     /*if(argc != 7){
         cout << "Need 7 arguments\n";
     }
-    else {*/
+    else {
         int n = atoi(argv[1]);
         int k = atoi(argv[2]);
         string methode = argv[3];
