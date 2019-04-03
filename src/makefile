@@ -1,8 +1,8 @@
 test: Solver_kmeans.o Solver.o Instance.o Point.o Solver_parent.o 
 	g++ -W -I../include -std=gnu++11 Point.o Instance.o Solver.o Solver_kmeans.o Solver_parent.o -o test test.cpp
 
-Solver_kmeans.o : Solver.o Solver_kmeans.cpp
-	g++ -W -c -I../include Solver_kmeans.cpp
+Solver_kmeans_pareto.o : Solver.o Solver_kmeans_pareto.cpp
+	g++ -W -c -I../include Solver_kmeans_pareto.cpp
 
 Solver.o: Solver_parent.o Solver.cpp
 	g++ -W -c -I../include Solver.cpp

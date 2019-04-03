@@ -83,10 +83,10 @@ int main (int argc, char *argv[]) {
 
 /*
 int main (int argc, char *argv[]) {
-    if(argc != 7){
+    /*if(argc != 7){
         cout << "Need 7 arguments\n";
     }
-    else {
+    else {*/
         int n = atoi(argv[1]);
         int k = atoi(argv[2]);
         string methode = argv[3];
@@ -95,10 +95,10 @@ int main (int argc, char *argv[]) {
         int maxiter = atoi(argv[6]);
         cout << "Debut constructeur\n";
         Solver s(n, k, filename);
-        Solver_kmeans km(n, k, filename, seuil, maxiter);
+        Solver_kmeans_pareto km(n, k, filename, seuil, maxiter);
         // cout << "Contructeur fini\n";
         int methode_code = 0;
-        if (methode == "median"){ methode_code = 1; }
+        /*if (methode == "median"){ methode_code = 1; }
         else if (methode == "means"){ methode_code = 2; }
         else if (methode == "medoids"){ methode_code = 3; }
         else if (methode == "dcenter"){ methode_code = 4; }
