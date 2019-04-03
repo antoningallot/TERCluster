@@ -24,7 +24,6 @@ void Solver_kmeans::displayCluster(vector<vector<int> > vect){
     }
 }
 
-
 void display_vect(vector<int> v){
     for (int i = 0; i < v.size(); i++){
         cout << v[i] << " ";
@@ -57,31 +56,28 @@ Point Solver_kmeans::cost_means(vector<int> vect){
         cpt ++;
     }
     p.multInt(1.0/cpt);
-    // cout<<"Fini"<<endl;
     return p;
 }
 
 void Solver_kmeans::K_means(){
     //Initialisation
-    vector<Point> centroids(k);
+    vector<Point> centroids(K);
     int M = 0;
     int new_epsilon = 0;
     int old_epsilon = INT_MAX;
     pair<int, int> pair;
     for(int c=0; c<K;c++){centroids[c]= pareto->getPoint(rand()%N);}
+    //Assignation
     while(maxinter>M && (abs(new_epsilon-old_epsilon)>seuil)){
         old_epsilon = new_epsilon;
         M += 1;
         vector<vector<int> > cluster(K, vector<int>());
-        // cout << "Assignation\n";
-        //Assignation
         for(int j=0; j<N; j++){
             float dist = 0;
             float dist_min = FLT_MAX;
             int min = -1;
             for(int I=0; I<K; I++){
                 dist = pareto->getPoint(j).distance(centroids[I]);
-                // cout << "Dist : " << dist << "\n";
                 if(dist<dist_min){
                     min = I;
                     dist_min = dist;
@@ -89,16 +85,10 @@ void Solver_kmeans::K_means(){
             }
             cluster[min].push_back(j);
         }
-        // display_clusters(cluster);
-        // cout << "Update\n";
         //Update
         for(int c=0;c<K;c++){
-            // display_vect(cluster[c]);
             centroids[c] = cost_means(cluster[c]);
         }
-        // display_points(centroids);
-        // cout << "Limit\n";
-        //Limit
         new_epsilon = 0;
         for(int c=0;c<K;c++){
             for(int j=0; j<static_cast<int>(cluster[c].size());j++){
@@ -115,15 +105,12 @@ void Solver_kmeans::K_means(){
             cout << "]" << endl;
         }
         cout<<endl;
-
-        // cout << "Solution\n";
         //Solution
         if(maxinter<=M || (abs(new_epsilon-old_epsilon)<seuil)){
             for(int I=0; I<K;I++){
                 int max = -1;
                 int min = N+1;
                 for(int j=0; j<static_cast<int>(cluster[I].size());j++){
-                    // cout << i << " " << j << "\n";
                     if(min>cluster[I][j]){min = cluster[I][j];}
                     if(max<cluster[I][j]){max = cluster[I][j];}
                 }
@@ -135,4 +122,3 @@ void Solver_kmeans::K_means(){
 
     }
 }
-

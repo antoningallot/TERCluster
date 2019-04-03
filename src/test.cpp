@@ -1,6 +1,6 @@
 #include <vector>
 #include "Solver.h"
-#include "Solver_kmeans.h"
+#include "Solver_kmeans_pareto.h"
 
 using namespace std;
 
@@ -23,7 +23,7 @@ int main (int argc, char *argv[]) {
         int seuil = atoi(argv[6]);
         // cout << n << " " << k << " " << filename << " " << methode << "\n";
         Solver s(n, k, filename);
-        Solver_kmeans km(n, k, filename, seuil, maxiter);
+        Solver_kmeans_pareto km(n, k, filename, seuil, maxiter);
         // cout << "Contructeur fini\n";
         int methode_code = 0;
         if (methode == "median"){ methode_code = 1; }
@@ -38,7 +38,7 @@ int main (int argc, char *argv[]) {
         // s.solve(methode_code);
         // s.backtrack(methode_code);
         // s.displaySolution();
-        km.K_means();
+        km.K_means_pareto();
         km.displaySolution();
         rtrim(filename);
         filename = filename + "_result.txt";
