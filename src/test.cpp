@@ -1,5 +1,6 @@
 #include <vector>
 #include "Solver.h"
+#include "Solver_kmeans.h"
 
 using namespace std;
 
@@ -10,16 +11,19 @@ void rtrim(string &s) {
 }
 
 int main (int argc, char *argv[]) {
-    if(argc != 5){
-        cout << "Need 5 arguments\n";
+    if(argc != 7){
+        cout << "Need 7 arguments\n";
     }
     else {
         int n = atoi(argv[1]);
         int k = atoi(argv[2]);
         string methode = argv[3];
         string filename = argv[4];
+        int maxiter = atoi(argv[5]);
+        int seuil = atoi(argv[6]);
         // cout << n << " " << k << " " << filename << " " << methode << "\n";
         Solver s(n, k, filename);
+        Solver_kmeans km(n, k, filename, seuil, maxiter);
         // cout << "Contructeur fini\n";
         int methode_code = 0;
         if (methode == "median"){ methode_code = 1; }
@@ -31,12 +35,11 @@ int main (int argc, char *argv[]) {
         else {
             cout << "Methode de calcul invalide\n";
         }
-        //s.fillArray();
-        s.solve(methode_code);
-        // s.displayMatrix();
-        s.backtrack(methode_code);
-        //s.displayMatrix();
-        s.displaySolution();
+        // s.solve(methode_code);
+        // s.backtrack(methode_code);
+        // s.displaySolution();
+        km.K_means();
+        km.displaySolution();
         rtrim(filename);
         filename = filename + "_result.txt";
         s.write_result(filename);
