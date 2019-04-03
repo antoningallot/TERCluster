@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cmath>
 #include "Solver.h"
@@ -20,18 +21,28 @@ Solver::Solver(int n, int k, string filename){
 /*** FONCTIONS D'INITIALISATION POUR LE CONSTRUCTEUR ***/
 
 void Solver::initMatrix(){
-    for(index i = 0; i < DP_matrix->shape()[1]; i++){
+    for(index i = 0; i < (int)DP_matrix->shape()[1]; i++){
         (*DP_matrix)[0][i] = -1;
     }
 }
 
 /*** FONCTIONS AUXILIAIRES POUR LA MANIPULATION ***/
 void Solver::displayMatrix(){
-    for(index i = 0; i < DP_matrix->size(); i++){
-        for (index j = 0; j < DP_matrix->shape()[1]; j++){
+    for(index i = 0; i < (int)DP_matrix->size(); i++){
+        for (index j = 0; j < (int)DP_matrix->shape()[1]; j++){
             cout << (*DP_matrix)[i][j] << " ";
         }
         cout << "\n";
+    }
+}
+
+void Solver::write_result(string filename){
+    ofstream file(filename.c_str());
+    if(file.is_open()){
+        for(int i = (int)solution->size()-1; i >= 0; i--){
+            file << (*solution)[i].second << " " << (*solution)[i].first << "\n";
+        }
+        file.close();
     }
 }
 

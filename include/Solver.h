@@ -1,3 +1,6 @@
+#ifndef SOLVER_H
+#define SOLVER_H
+
 #include <iostream>
 #include <vector>
 #include "Solver_parent.hpp"
@@ -17,8 +20,11 @@ class Solver : public Solver_parent {
     Solver(int n, int k, std::string filename);
     void initMatrix();
     void displayMatrix();
+    void write_result(std::string filename);
     float min_DP(int i, int k, int methode);
     void solve(int methode);
     void backtrack(int methode);
     
 };
+
+#endif

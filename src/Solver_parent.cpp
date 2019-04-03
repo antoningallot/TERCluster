@@ -25,20 +25,10 @@ void Solver_parent::displayPareto(){
 }
 
 void Solver_parent::displaySolution(){
-    for(int i = 0; i < solution->size(); i++){
+    for(int i = 0; i < (int)solution->size(); i++){
         cout << (*solution)[i].first << " " << (*solution)[i].second << "\n";
     }
     // cout << "\n";
 }
 
 void Solver_parent::solve(int methode){ };
-
-void Solver_parent::write_result(string filename){
-    ofstream file(filename.c_str());
-    if(file.is_open()){
-        for(int i = solution->size()-1; i >= 0; i--){
-            file << (*solution)[i].second << " " << (*solution)[i].first << "\n";
-        }
-        file.close();
-    }
-}

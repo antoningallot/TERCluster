@@ -1,4 +1,5 @@
 #include "Solver_kmeans.h"
+#include <fstream>
 #include<bits/stdc++.h> 
 
 using namespace std;
@@ -14,6 +15,8 @@ Solver_kmeans::Solver_kmeans(int n, int k, string filename, float s, int m){
     maxinter = m;
 }
 
+/*** FONCTIONS AUXILIAIRES POUR LA MANIPULATION ***/
+
 void Solver_kmeans::displayCluster(vector<vector<int> > vect){
     for(int i=0; i<static_cast<int>(vect.size()); i++){
         cout <<"[";
@@ -25,14 +28,14 @@ void Solver_kmeans::displayCluster(vector<vector<int> > vect){
 }
 
 void display_vect(vector<int> v){
-    for (int i = 0; i < v.size(); i++){
+    for (int i = 0; i < (int)v.size(); i++){
         cout << v[i] << " ";
     }
     cout << "\n";
 }
 
 void display_points(vector<Point> v){
-    for (int i = 0; i < v.size(); i++){
+    for (int i = 0; i < (int)v.size(); i++){
         v[i].display();
         cout << " ";
     }
@@ -40,13 +43,25 @@ void display_points(vector<Point> v){
 }
 
 void display_clusters(vector<vector<int> > v){
-    for (int i = 0; i < v.size(); i++){
-        for (int j = 0; j < v[i].size(); j++){
+    for (int i = 0; i < (int)v.size(); i++){
+        for (int j = 0; j < (int)v[i].size(); j++){
             cout << v[i][j] << " ";
         }
         cout << "\n";
     }
 }
+
+void Solver_kmeans::write_result(string filename){
+    ofstream file(filename.c_str());
+    if(file.is_open()){
+        for(int i = solution->size()-1; i >= 0; i--){
+            file << (*solution)[i].first << " " << (*solution)[i].second << "\n";
+        }
+        file.close();
+    }
+}
+
+/*** FONCTIONS DE CLUSTERING ***/
 
 Point Solver_kmeans::cost_means(vector<int> vect){
     Point p(0,0);
@@ -63,8 +78,8 @@ void Solver_kmeans::K_means(){
     //Initialisation
     vector<Point> centroids(K);
     int M = 0;
-    int new_epsilon = 0;
-    int old_epsilon = INT_MAX;
+    float new_epsilon = 0;
+    float old_epsilon = FLT_MAX;
     pair<int, int> pair;
     for(int c=0; c<K;c++){centroids[c]= pareto->getPoint(rand()%N);}
     //Assignation
@@ -95,17 +110,18 @@ void Solver_kmeans::K_means(){
                 new_epsilon += pareto->getPoint(j).distance(centroids[c]);
             }
         }
-        cout<<endl;
+        //cout<<endl;
 
-        for(int i=0; i<static_cast<int>(cluster.size()); i++){
-            cout <<"[";
-            for(int j=0; j<static_cast<int>(cluster[i].size()); j++){
-                cout<< cluster[i][j] << " ";
-            }
-            cout << "]" << endl;
-        }
-        cout<<endl;
+        // for(int i=0; i<static_cast<int>(cluster.size()); i++){
+            // cout <<"[";
+            // for(int j=0; j<static_cast<int>(cluster[i].size()); j++){
+                // cout<< cluster[i][j] << " ";
+            // }
+            // cout << "]" << endl;
+        // }
+        // cout<<endl;
         //Solution
+        // cout << M << " " << (new_epsilon-old_epsilon) << "\n";
         if(maxinter<=M || (abs(new_epsilon-old_epsilon)<seuil)){
             for(int I=0; I<K;I++){
                 int max = -1;

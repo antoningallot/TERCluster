@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 # import numpy as np
 import random
+from operator import itemgetter
+import sys
 
 def get_points(filename):
     f = open(filename, "r")
@@ -20,7 +22,7 @@ def get_clusters(filename):
     for line in f:
         newline = line.split()
         res.append( (int(newline[0]), int(newline[1])) )
-    return res
+    return sorted(res, key=itemgetter(0))
 
 def belongs(i, cluster):
     return i >= cluster[0] and i <= cluster[1]
@@ -40,9 +42,8 @@ def display(points, clusters):
     # plt.plot(xlist, ylist, 'k.')
     plt.show()
     
-filename_points = "dataAlea_100_100_100_ex0.txt"
-filename_results = "dataAlea_100_100_100_ex0_result.txt"
+filename_points = str(sys.argv[1])
+filename_results = filename_points[:len(filename_points)-4] + "_result.txt"
 points = get_points(filename_points)
 clusters = get_clusters(filename_results)
-print(len(points))
 display(points, clusters)
