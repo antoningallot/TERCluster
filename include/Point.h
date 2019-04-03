@@ -1,3 +1,6 @@
+#ifndef POINT_H
+#define POINT_H
+
 #include <iostream>
 
 class Point {
@@ -13,3 +16,5 @@ class Point {
     void addPoint(Point i);
     void multInt(float val);
 };
+
+#endif

@@ -19,8 +19,8 @@ int main (int argc, char *argv[]) {
         int k = atoi(argv[2]);
         string methode = argv[3];
         string filename = argv[4];
-        int maxiter = atoi(argv[5]);
-        int seuil = atoi(argv[6]);
+        float seuil = (float) atoi(argv[5]);
+        int maxiter = atoi(argv[6]);
         // cout << n << " " << k << " " << filename << " " << methode << "\n";
         Solver s(n, k, filename);
         Solver_kmeans km(n, k, filename, seuil, maxiter);
@@ -38,23 +38,14 @@ int main (int argc, char *argv[]) {
         // s.solve(methode_code);
         // s.backtrack(methode_code);
         // s.displaySolution();
+        //km.displayPareto();
         km.K_means();
         km.displaySolution();
+        // cout << km.getSolution().size() << endl;
         rtrim(filename);
         filename = filename + "_result.txt";
-        s.write_result(filename);
+        km.write_result(filename);
     }
     
-    /*
-    int n = atoi(argv[1]);
-    int k = atoi(argv[2]);
-    string filename = argv[3];
-    float s = atof(argv[4]);
-    int m = atoi(argv[5]);
-    //cout << n << " " << k << " " << filename << " " << s << " " << m << endl;
-    Solver_kmeans km(n,k,filename,s,m);
-    km.K_means(n,k);
-    km.displaySolution();
-    */
     return 0;
 }

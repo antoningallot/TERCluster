@@ -1,3 +1,6 @@
+#ifndef INSTANCE_H
+#define INSTANCE_H
+
 #include "Point.h"
 #include "boost/multi_array.hpp"
 #include <vector>
@@ -35,3 +38,5 @@ class Instance {
     float cost_dcenterv2(int i, int iprime);
     float cost_ccenter(int i, int iprime);
 };
+
+#endif

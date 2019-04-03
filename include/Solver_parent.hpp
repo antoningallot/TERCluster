@@ -1,3 +1,6 @@
+#ifndef SOLVER_PARENT_H
+#define SOLVER_PARENT_H
+
 #include <vector>
 #include "Instance.h"
 
@@ -16,5 +19,6 @@ class Solver_parent {
     void displayPareto();
     void displaySolution();
     void solve(int methode);
-    void write_result(std::string filename);
 };
+
+#endif

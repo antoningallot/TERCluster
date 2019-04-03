@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 16 14:15:48 2019
 
-@author: antonin.gallot
-"""
 import random
 import matplotlib.pyplot as plt
+import sys
 
 def generate_coords_convex(N, a, b, alpha):
     res = list()
@@ -18,7 +15,7 @@ def generate_coords_convex(N, a, b, alpha):
     return res
 
 def create_file_convex(N, a, b, alpha, points, number):
-    filename = "dataConvex_" + str(a) + "_" + str(b) + "_" + str(alpha) + "_" + str(N) + "_ex" + str(number) +".txt"
+    filename = "dataConvex/dataConvex_" + str(a) + "_" + str(b) + "_" + str(alpha) + "_" + str(N) + "_ex" + str(number) +".txt"
     f = open(filename, "w")
     f.write(str(N) + " " + "2" + " \n")
     for x, y in points:
@@ -35,7 +32,7 @@ def generate_coords_concav(N, a, b, alpha):
     return res
 
 def create_file_concav(N, a, b, alpha, points, number):
-    filename = "dataConcav_" + str(a) + "_" + str(b) + "_" + str(alpha) + "_" + str(N) + "_ex" + str(number) + ".txt"
+    filename = "dataConcav/dataConcav_" + str(a) + "_" + str(b) + "_" + str(alpha) + "_" + str(N) + "_ex" + str(number) + ".txt"
     f = open(filename, "w")
     f.write(str(N) + " " + "2" + " \n")
     for x, y in points:
@@ -56,7 +53,7 @@ def generate_coords_alea(N, A, B):
     return res
     
 def create_file_alea(N, A, B, points, number):
-    filename = "dataAlea_" + str(A) + "_" + str(B) + "_" + str(N) + "_ex" + str(number) + ".txt"
+    filename = "dataAlea/dataAlea_" + str(A) + "_" + str(B) + "_" + str(N) + "_ex" + str(number) + ".txt"
     f = open(filename, "w")
     f.write(str(N) + " " + "2" + " \n")
     for x, y in points:
@@ -86,45 +83,41 @@ def generate_coords_alea_box(N, A, B):
     return res
     
 def create_file_alea_box(N, A, B, points, number):
-    filename = "dataAleaBox_" + str(A) + "_" + str(B) + "_" + str(N) + "_ex" + str(number) + ".txt"
+    filename = "dataAleaBox/dataAleaBox_" + str(A) + "_" + str(B) + "_" + str(N) + "_ex" + str(number) + ".txt"
     f = open(filename, "w")
     f.write(str(N) + " " + "2" + "\n")
     for x, y in points:
         f.write(str(x) + " " + str(y) + " \n")
     f.close()
 
-def display(l):
-    xlist= list()
-    ylist= list()
-    for p in l:
-        xlist.append(p[0])
-        ylist.append(p[1])
-    plt.plot(xlist, ylist, 'k.')
-    plt.show()
+# def display(l):
+#     xlist= list()
+#     ylist= list()
+#     for p in l:
+#         xlist.append(p[0])
+#         ylist.append(p[1])
+#     plt.plot(xlist, ylist, 'k.')
+#     plt.show()
 
 def mult_instances_convex(N, a, b, alpha, p):
     for i in range(p):
         data = generate_coords_convex(N, a, b, alpha)
         create_file_convex(N, a, b, alpha, data, i)
-    #display(data)
     
 def mult_instances_concav(N, a, b, alpha, p):
     for i in range(p):
         data = generate_coords_concav(N, a, b, alpha)
         create_file_concav(N, a, b, alpha, data, i)
-    #display(data)
 
 def mult_instances_alea(N, A, B, p):
     for i in range(p):
         data = generate_coords_alea(N, A, B)
         create_file_alea(N, A, B, data, i)
-    #display(data)
 
 def mult_instances_alea_box(N, A, B, p):
     for i in range(p):
         data = generate_coords_alea_box(N, A, B)
         create_file_alea_box(N, A, B, data, i)
-    #display(data)
 
 def create_data(N, a, b, alpha, A, B, p):
     mult_instances_convex(N, a, b, alpha, p)
@@ -132,4 +125,12 @@ def create_data(N, a, b, alpha, A, B, p):
     mult_instances_alea(N, A, B, p)
     mult_instances_alea_box(N, A, B, p)
 
-create_data(100, 0, 100, 0.5, 100, 100, 5)
+nb_points = int(sys.argv[1])
+a = sys.argv[2]
+b = sys.argv[3]
+alpha = sys.argv[4]
+A = sys.argv[5]
+B = sys.argv[6]
+nb_fichiers = int(sys.argv[7])
+print(type(nb_points))
+create_data(nb_points, a, b, alpha, A, B, nb_fichiers)
