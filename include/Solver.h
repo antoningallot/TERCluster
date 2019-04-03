@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Solver_parent.hpp"
-#include "boost/multi_array.hpp"
+#include <boost/multi_array.hpp>
 
 // Syntaxe de boost qui permet de créer une matrice de float de dimension 2
 typedef boost::multi_array<float, 2> array_type;
@@ -21,6 +21,7 @@ class Solver : public Solver_parent {
     void initMatrix();
     void displayMatrix();
     void write_result(std::string filename);
+    float get_result();
     float min_DP(int i, int k, int methode);
     void solve(int methode);
     void backtrack(int methode);

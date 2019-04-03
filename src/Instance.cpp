@@ -69,7 +69,7 @@ Point Instance::getPoint(int i){ return (*pareto)[i];}
 
 int Instance::getSize(){ return pareto->size(); }
 
-/*** FONCTIONS DE CALCUL DES COUTS EN UTILISANT LA MATRICE INITIALISE ***/ 
+/*** FONCTIONS DE CALCUL DES COUTS EN UTILISANT LA MATRICE DES DISTANCES ***/ 
 
 float Instance::cost_means_matrix(int i, int iprime){
     float sum = 0;
@@ -166,7 +166,21 @@ float Instance::cost_ccenter_matrix(int i, int iprime){
     return 0.5*sqrt(sum);
 }
 
-/*** FONCTIONS DE CALCUL DES COUTS EN RECALCULANT A CHAQUE APPEL ***/
+/*** FONCTIONS DE CALCUL DES COUTS SANS UTILISER LA MATRICE DES DISTANCES ***/
+
+float Instance::cost_means(int i, int iprime){
+    float sum = 0;
+    int cpt = 0;
+    Point p(0,0);
+    for(int j= i; j <= iprime; j++){
+        p.addPoint(getPoint(j));
+    }
+    p.multInt(1/(iprime-i+1));
+    for(int I = i; I <= iprime; I++){
+        sum+= getPoint(I).distance(p);
+    }
+    return sum;
+}
 
 float Instance::cost_medoids(int i, int iprime){
     float min = FLT_MAX;

@@ -13,6 +13,7 @@ class Solver_kmeans : public Solver_parent{
     private:
     float seuil;
     int maxinter;
+    float result;
 
 
     public:
@@ -21,6 +22,7 @@ class Solver_kmeans : public Solver_parent{
     void write_result(std::string filename);
     Point cost_means(std::vector<int> vect);
     void K_means();
+    float compute_result();
 };
 
 #endif

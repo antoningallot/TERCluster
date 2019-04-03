@@ -153,3 +153,10 @@ void Solver_kmeans::K_means(){
     }
 }
 
+float Solver_kmeans::compute_result(){
+    float result = 0.0;
+    for(int i = 0; i < (int)solution->size(); i++){
+        result += pareto->cost_means((*solution)[i].first, (*solution)[i].second);
+    }
+    return result;
+}

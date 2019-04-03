@@ -46,6 +46,10 @@ void Solver::write_result(string filename){
     }
 }
 
+float Solver::get_result(){
+    return (*DP_matrix)[N][K-1];
+}
+
 /*** FONCTIONS DE LA PROGRAMMATION DYNAMIQUE ***/
 
 float Solver::min_DP(int i, int k, int methode){
@@ -190,7 +194,6 @@ void Solver::backtrack(int methode){
             for (index j = 1; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_median_matrix((int)j-1, i-1);
                 if((*DP_matrix)[i][k] == tmp){
-                    cout << "On entre dans le if\n";
                     pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;

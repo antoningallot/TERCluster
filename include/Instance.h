@@ -33,6 +33,7 @@ class Instance {
     float cost_ccenter_matrix(int i, int iprime);
 //Calcul sans matrice    
     float cost_median(int i, int iprime);
+    float cost_means(int i, int iprime);
     float cost_medoids(int i, int iprime);
     float cost_dcenter(int i, int iprime);
     float cost_dcenterv2(int i, int iprime);

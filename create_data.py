@@ -126,11 +126,11 @@ def create_data(N, a, b, alpha, A, B, p):
     mult_instances_alea_box(N, A, B, p)
 
 nb_points = int(sys.argv[1])
-a = sys.argv[2]
-b = sys.argv[3]
-alpha = sys.argv[4]
-A = sys.argv[5]
-B = sys.argv[6]
+a = int(sys.argv[2])
+b = int(sys.argv[3])
+alpha = float(sys.argv[4])
+A = int(sys.argv[5])
+B = int(sys.argv[6])
 nb_fichiers = int(sys.argv[7])
-print(type(nb_points))
-create_data(nb_points, a, b, alpha, A, B, nb_fichiers)
+# create_data(nb_points, a, b, alpha, A, B, nb_fichiers)
+mult_instances_alea(nb_points, A, B, nb_fichiers)
