@@ -1,5 +1,5 @@
 #include <vector>
-#include "Solver_kmeans.h"
+#include "Solver.h"
 
 using namespace std;
 
@@ -10,11 +10,11 @@ void rtrim(string &s) {
 }
 
 int main (int argc, char *argv[]) {
-    /*if(argc != 5){
+    if(argc != 5){
         cout << "Need 5 arguments\n";
     }
     else {
-        /*int n = atoi(argv[1]);
+        int n = atoi(argv[1]);
         int k = atoi(argv[2]);
         string methode = argv[3];
         string filename = argv[4];
@@ -37,12 +37,12 @@ int main (int argc, char *argv[]) {
         s.backtrack(methode_code);
         //s.displayMatrix();
         s.displaySolution();
-<<<<<<< HEAD
-
-
-        
-    }*/
-
+        rtrim(filename);
+        filename = filename + "_result.txt";
+        s.write_result(filename);
+    }
+    
+    /*
     int n = atoi(argv[1]);
     int k = atoi(argv[2]);
     string filename = argv[3];
@@ -52,12 +52,6 @@ int main (int argc, char *argv[]) {
     Solver_kmeans km(n,k,filename,s,m);
     km.K_means(n,k);
     km.displaySolution();
-=======
-        rtrim(filename);
-        filename = filename + "_result.txt";
-        s.write_result(filename);
-    }
->>>>>>> 231a96de5a8e0b7df5ee9491c3d943ec4c11d24a
-
+    */
     return 0;
 }

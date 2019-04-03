@@ -47,7 +47,7 @@ def generate_coords_alea(N, A, B):
     x = 0
     y = 1000
     res.append((x, y))
-    for i in range(N):
+    for i in range(N-1):
         a = random.uniform(0, A)
         b = random.uniform(0, B)
         x = x + a

@@ -33,6 +33,7 @@ def display(points, clusters):
     ax = fig.add_subplot(111)
     for i,p in enumerate(points):
         if(not belongs(i, clusters[cpt]) ):
+            # print(i)
             cpt += 1
             color = (random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1))
         ax.scatter(p[0], p[1], c=color)
@@ -43,4 +44,5 @@ filename_points = "dataAlea_100_100_100_ex0.txt"
 filename_results = "dataAlea_100_100_100_ex0_result.txt"
 points = get_points(filename_points)
 clusters = get_clusters(filename_results)
+print(len(points))
 display(points, clusters)
