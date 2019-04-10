@@ -31,4 +31,8 @@ void Solver_parent::displaySolution(){
     // cout << "\n";
 }
 
+int Solver_parent::getSize(){
+    return pareto->getSize();
+}
+
 void Solver_parent::solve(int methode){ };

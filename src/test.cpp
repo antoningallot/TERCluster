@@ -28,7 +28,7 @@ int main (int argc, char *argv[]) {
     else if (methode == "dcenterv2"){ methode_code = 5; }
     else if (methode == "ccenter"){ methode_code = 6; }
     else {
-        cout << "Methode de calcul invalide\n";
+        cout<<"Erreur Methode:  Non assigné"<<endl;
     }
     Solver s(n, k, filename);
     Solver_kmeans km(n, k, filename, seuil, maxiter);
