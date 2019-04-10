@@ -1,7 +1,7 @@
 #include "Solver_kmeans.h"
 #include <fstream>
-#include<cmath>
-#include<bits/stdc++.h> 
+#include <cmath>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -76,7 +76,7 @@ Point Solver_kmeans::kmeans_center(vector<int> vect){
 }
 
 Point Solver_kmeans::kmedoids_center(vector<int> vect){
-    float min = 1000.0;
+    float min = FLT_MAX;
     int value = 0;
     int center;
     float distance_cost;
@@ -86,7 +86,7 @@ Point Solver_kmeans::kmedoids_center(vector<int> vect){
         for(int j= 0; j < static_cast<int>(vect.size()); j++){
             distance_cost += pow(pareto->getPoint(center).distance(pareto->getPoint(vect[j])),2.0);
         }
-        if(distance_cost<min){
+        if(distance_cost<=min){
             value = center;
             min = distance_cost;
         }
@@ -95,17 +95,17 @@ Point Solver_kmeans::kmedoids_center(vector<int> vect){
 }
 
 Point Solver_kmeans::kmedian_center(vector<int> vect){
-    float min = 1000.0;
+    float min = FLT_MAX;
     int value = 0;
-    int center;
-    float distance_cost;
+    int center = 0;
+    float distance_cost = 0.0;
     for(int i= 0; i < static_cast<int>(vect.size()); i++){
         center = vect[i];
         distance_cost = 0;
         for(int j= 0; j < static_cast<int>(vect.size()); j++){
             distance_cost += pareto->getPoint(center).distance(pareto->getPoint(vect[j]));
         }
-        if(distance_cost<min){
+        if(distance_cost<=min){
             value = center;
             min = distance_cost;
         }
@@ -113,43 +113,55 @@ Point Solver_kmeans::kmedian_center(vector<int> vect){
     return pareto->getPoint(value);
 }
 
-Point Solver_kmeans::discrete_kcenter(vector<int> vect){
+Point Solver_kmeans::dcenter(vector<int> vect){
+    int extr1, extr2;
+    float dist;
+    int max = 0;
+    for(int i= 0; i < static_cast<int>(vect.size()); i++){
+        for(int j= 0; i < static_cast<int>(vect.size()); i++){
+            dist = pareto->getPoint(vect[i]).distance(pareto->getPoint(vect[j]));
+            if(dist>= max){max = dist;extr1 = i;extr2 = j;}
+        }
+    }
+    int center = -1;
+    float d1, d2;
+    float min = FLT_MAX;
+    for(int i= 0; i < static_cast<int>(vect.size()); i++){
+        cout<<"I";
+        d1 = pareto->getPoint(vect[i]).distance(pareto->getPoint(vect[extr1]));
+        d2 = pareto->getPoint(vect[i]).distance(pareto->getPoint(vect[extr2]));
+        if(d1>d2){
+            if (d1<=min){center = vect[i];min = d1;}
+        }
+        else{
+            if (d2<=min){center = vect[i];min = d2;}
+        }
+    }
+    cout<<" Centre : "<<center<<endl;
+    return pareto->getPoint(center);
+}
+
+Point Solver_kmeans::ccenter(vector<int> vect){
     int extr1, extr2;
     float dist;
     int value = 0;
     for(int i= 0; i < static_cast<int>(vect.size()); i++){
         for(int j= 0; i < static_cast<int>(vect.size()); i++){
             dist = pareto->getPoint(vect[i]).distance(pareto->getPoint(vect[j]));
-            if(dist>value){
-                value = dist;
-                extr1 = i;
-                extr2 = j;
-            }
+            if(dist>= value){value = dist;extr1 = i;extr2 = j;}
         }
     }
-    int center = 0;
-    float d1,d2;
-    for(int i= 0; i < static_cast<int>(vect.size()); i++){
-        d1 = pareto->getPoint(vect[i]).distance(pareto->getPoint(extr1));
-        d2 = pareto->getPoint(vect[i]).distance(pareto->getPoint(extr2));
-        if(d1>d2){
-            if (d1<value){
-                center = i;
-                value = d1;
-            }
-        }
-        else{
-            if (d2<value){
-                center = i;
-                value = d2;
-            }
-        }
-    }
-    return pareto->getPoint(center);
+    Point p(0,0);
+    p.addPoint(pareto->getPoint(vect[extr1]));
+    p.addPoint(pareto->getPoint(vect[extr2]));
+    p.multInt(1.0/2.0);
+    return p;
 }
+
 
 void Solver_kmeans::solve(int methode){
     //Initialisation
+    
     vector<Point> centroids(K);
     int M = 0;
     float new_epsilon = 0;
@@ -158,6 +170,7 @@ void Solver_kmeans::solve(int methode){
     for(int c=0; c<K;c++){centroids[c]= pareto->getPoint(rand()%N);}
     //Assignation
     while(maxinter>M && (abs(new_epsilon-old_epsilon)>seuil)){
+        cout<<M<<endl;
         old_epsilon = new_epsilon;
         M += 1;
         vector<vector<int> > cluster(K, vector<int>());
@@ -175,9 +188,38 @@ void Solver_kmeans::solve(int methode){
             cluster[min].push_back(j);
         }
         //Update
-        for(int c=0;c<K;c++){
-            centroids[c] = kmedoids_center(cluster[c]);
+        
+        switch (methode){
+            case 1:
+                for(int c=0;c<K;c++){
+                    centroids[c] = kmedian_center(cluster[c]);
+                }    
+                break;
+            case 2:
+                for(int c=0;c<K;c++){
+                    centroids[c] = kmeans_center(cluster[c]);
+                }
+                break;
+            case 3:
+                for(int c=0;c<K;c++){
+                    centroids[c] = kmedoids_center(cluster[c]);
+                }
+                break;
+            case 4:
+                for(int c=0;c<K;c++){
+                    cout<<"Cluster"<<c<<" : ";
+                    centroids[c] = dcenter(cluster[c]);
+                }
+                break;
+            case 6:
+            for(int c=0;c<K;c++){
+                centroids[c] = ccenter(cluster[c]);
+            }
+            break;
+            default:
+                break;
         }
+
         new_epsilon = 0;
         for(int c=0;c<K;c++){
             for(int j=0; j<static_cast<int>(cluster[c].size());j++){
@@ -203,21 +245,35 @@ void Solver_kmeans::solve(int methode){
 
 float Solver_kmeans::get_result(int methode){
     float result = 0.0;
-    for(int i = 0; i < (int)solution->size(); i++){
-        result += pareto->cost_means((*solution)[i].first, (*solution)[i].second);
+    switch (methode) {
+        case 1:  
+            for(int i = 0; i < (int)solution->size(); i++){ 
+                result += pareto->cost_median((*solution)[i].first, (*solution)[i].second);
+            }
+            break;
+         case 2:  
+            for(int i = 0; i < (int)solution->size(); i++){ 
+                result += pareto->cost_means((*solution)[i].first, (*solution)[i].second);
+            }
+            break;
+         case 3:  
+            for(int i = 0; i < (int)solution->size(); i++){ 
+                result += pareto->cost_medoids((*solution)[i].first, (*solution)[i].second);
+            }
+            break;
+         case 4:  
+            for(int i = 0; i < (int)solution->size(); i++){ 
+                result += pareto->cost_dcenter((*solution)[i].first, (*solution)[i].second);
+            }
+            break;
+         case 6:  
+            for(int i = 0; i < (int)solution->size(); i++){ 
+                result += pareto->cost_ccenter((*solution)[i].first, (*solution)[i].second);
+            }
+            break;
+    
+        default:
+            break;
     }
     return result;
 }
-
-       //cout<<endl;
-
-        // for(int i=0; i<static_cast<int>(cluster.size()); i++){
-            // cout <<"[";
-            // for(int j=0; j<static_cast<int>(cluster[i].size()); j++){
-                // cout<< cluster[i][j] << " ";
-            // }
-            // cout << "]" << endl;
-        // }
-        // cout<<endl;
-        //Solution
-        // cout << M << " " << (new_epsilon-old_epsilon) << "\n";
