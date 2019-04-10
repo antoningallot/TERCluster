@@ -176,7 +176,7 @@ void Solver_kmeans::solve(int methode){
         }
         //Update
         for(int c=0;c<K;c++){
-            centroids[c] = kmedoids_center(cluster[c]);
+            centroids[c] = kmeans_center(cluster[c]);
         }
         new_epsilon = 0;
         for(int c=0;c<K;c++){

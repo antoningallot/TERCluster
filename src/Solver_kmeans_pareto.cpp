@@ -47,7 +47,7 @@ float Solver_kmeans_pareto::get_result(int methode){
     // TODO
 }
 
-void Solver_kmeans_pareto::solver(){
+void Solver_kmeans_pareto::solve(int methode){
     //Initialisation
     vector<Point> centroids(K);
     int M = 0;

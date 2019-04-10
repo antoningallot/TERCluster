@@ -11,8 +11,8 @@ void rtrim(string &s) {
 }
 
 int main (int argc, char *argv[]) {
-    if(argc != 9){
-        cout << "Need 9 arguments\n";
+    if(argc != 7){
+        cout << "Need 7 arguments\n";
         return 0;
     }
     else {
@@ -24,38 +24,11 @@ int main (int argc, char *argv[]) {
         string filename = argv[4]; // Fichier sur lequel tester
         float seuil = (float) atoi(argv[5]); // Seuil pour algo de Lloyd
         int maxiter = atoi(argv[6]); // Maxiter pour algo de Lloyd
-        int solver1 = atoi(argv[7]); // Type du premier solver
-        int solver2 = atoi(argv[8]); // Type du deuxième solver
-        
-        switch (solver1)
-        {
-            case 1:
-            Solver s1(n, k, filename);
-            break;
 
-            case 2:
-            Solver_kmeans s1(n, k, filename, seuil, maxiter);
-            break;
-
-            case 3:
-            Solver_kmeans_pareto s1(n, k, filename, seuil, maxiter);
-            break;
-        }
-
-        switch (solver2)
-        {
-            case 1:
-            Solver s2(n, k, filename);
-            break;
-
-            case 2:
-            Solver_kmeans s2(n, k, filename, seuil, maxiter);
-            break;
-
-            case 3:
-            Solver_kmeans_pareto s2(n, k, filename, seuil, maxiter);
-            break;
-        }
+        // cout << "Début constructeur" << endl;
+        Solver DP(n, k, filename);
+        Solver_kmeans km(n, k, filename, seuil, maxiter);
+        Solver_kmeans_pareto km_pareto(n, k, filename, seuil, maxiter);
         
         int methode_code = 0;
         if (methode == "median"){ methode_code = 1; }
@@ -69,44 +42,69 @@ int main (int argc, char *argv[]) {
             return 0;
         }
 
-        // Record start time Solver1
-        auto start_solver1 = chrono::high_resolution_clock::now();
+        cout << DP.getSize() << endl;
+        // cout << "Début solve DP" << endl;
 
-        s1.solve(methode_code);
-        if (solver1 == 1){ s1.backtrack(methode_code); }
+        // Record start time Solver DP
+        auto start_DP = chrono::high_resolution_clock::now();
 
-        // Record end time Solver1
-        auto finish_solver1 = chrono::high_resolution_clock::now();
+        DP.solve(methode_code);
+        DP.backtrack(methode_code);
+
+        // Record end time Solver DP
+        auto finish_DP = chrono::high_resolution_clock::now();
         
         // Compute execution time Solver1
-        chrono::duration<double> elapsed_solver1 = finish_solver1 - start_solver1;
+        chrono::duration<double> elapsed_DP = finish_DP - start_DP;
 
         // Result Solver1
-        float result_solver1 = s1.get_result(); 
+        float result_DP = DP.get_result(methode_code); 
         
-        // Cout results Solver1 to CompletedProcess
-        cout << elapsed_solver1.count() << endl; // Temps d'exécution du solver1
-        cout << result_solver1 << endl; // Cout du solver1
+        // Cout results Solver DP to CompletedProcess
+        cout << elapsed_DP.count() << endl; // Temps d'exécution solver DP
+        cout << result_DP << endl; // Cout solver DP
 
-        // Record start time Solver2
-        auto start_solver2 = chrono::high_resolution_clock::now();
-        
-        s2.solve();
-        if (solver2 == 1){ s2.backtrack(methode_code); }
-        
-        // Record end time Solver2
-        auto finish_solver2 = chrono::high_resolution_clock::now();
+        // cout << "Début solve k-means" << endl;
 
-        // Compute execution time Solver2
-        chrono::duration<double> elapsed_lloyd = finish_solver2 - start_solver2;
+        // Record start time Solver k-means
+        auto start_km = chrono::high_resolution_clock::now();
         
-        // Result Solver2
-        float result_solver2 = s2.get_result();
+        km.solve(methode_code);
         
-        // Cout results Solver1 to CompletedProcess
-        cout << elapsed_solver2.count() << endl; // Temps d'exécution du solver2
-        cout <<  result_solver2 << endl; // Cout du solver2
+        // Record end time Solver k-means
+        auto finish_km = chrono::high_resolution_clock::now();
+
+        // Compute execution time Solver k-means
+        chrono::duration<double> elapsed_km = finish_km - start_km;
         
+        // Result Solver k-means
+        float result_km = km.get_result(methode_code);
+        
+        // Cout results Solver k-means to CompletedProcess
+        cout << elapsed_km.count() << endl; // Temps d'exécution du solver k-means
+        cout <<  result_km << endl; // Cout du solver k-means
+        
+        // cout << "Début solve k-means pareto" << endl;
+
+        // Record start time Solver k-means pareto
+        auto start_km_pareto = chrono::high_resolution_clock::now();
+        
+        km_pareto.solve(methode_code);
+        
+        // Record end time Solver k-means pareto
+        auto finish_km_pareto = chrono::high_resolution_clock::now();
+
+        // Compute execution time Solver k-means pareto
+        chrono::duration<double> elapsed_km_pareto = finish_km_pareto - start_km_pareto;
+        
+        // Result Solver k-means pareto
+        float result_km_pareto = km_pareto.get_result(methode_code);
+        
+        // Cout results Solver k-means pareto to CompletedProcess
+        cout << elapsed_km_pareto.count() << endl; // Temps d'exécution du solver k-means pareto
+        cout <<  result_km_pareto << endl; // Cout du solver k-means pareto
+        
+
         // rtrim(filename);
         // filename = filename + "_result.txt";
         // km.write_result(filename);

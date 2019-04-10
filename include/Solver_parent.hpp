@@ -16,6 +16,7 @@ class Solver_parent {
     Solver_parent();
     Solver_parent(int n, int k, std::string filename);
     std::vector<std::pair<int, int> > getSolution();
+    int getSize();
     void displayPareto();
     void displaySolution();
     void solve(int methode);

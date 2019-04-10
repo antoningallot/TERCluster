@@ -25,8 +25,6 @@ int main (int argc, char *argv[]) {
         string filename = argv[4];
         float seuil = (float) atoi(argv[5]);
         int maxiter = atoi(argv[6]);
-        string solver1 = argv[7];
-        string solver2 = argv[8];
         
         cout << "Debut constructeur Solver\n";
         Solver s(n, k, filename);
@@ -53,26 +51,26 @@ int main (int argc, char *argv[]) {
 
         cout << "DP fini\n";
 
-        float result_DP = s.get_result(); 
+        float result_DP = s.get_result(methode_code); 
         cout << "Temps d'exécution de DP : " << elapsed_DP.count() << endl;
         cout << "Cout de DP : " << result_DP << endl;
 
         // Record start time
         auto start_lloyd = chrono::high_resolution_clock::now();
-        km.K_means();
+        km.solve(methode_code);
         auto finish_lloyd = chrono::high_resolution_clock::now();
         chrono::duration<double> elapsed_lloyd = finish_lloyd - start_lloyd;
         
         cout << "Lloyd fini\n";
-        float result_lloyd = km.compute_result();
+        float result_lloyd = km.get_result(methode_code);
         
         cout << "Temps d'exécution de Lloyd : " << elapsed_lloyd.count() << endl;
         cout << "Cout de Lloyd : " << result_lloyd << endl;
         
         cout << "Gap Lloyd/DP : " << result_lloyd - result_DP << endl;
-        rtrim(filename);
-        filename = filename + "_result.txt";
-        km.write_result(filename);
+        // rtrim(filename);
+        // filename = filename + "_result.txt";
+        // km.write_result(filename);
     }
     
     return 0;
