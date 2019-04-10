@@ -148,7 +148,7 @@ Point Solver_kmeans::discrete_kcenter(vector<int> vect){
     return pareto->getPoint(center);
 }
 
-void Solver_kmeans::K_means(){
+void Solver_kmeans::solve(int methode){
     //Initialisation
     vector<Point> centroids(K);
     int M = 0;
@@ -201,7 +201,7 @@ void Solver_kmeans::K_means(){
     }
 }
 
-float Solver_kmeans::compute_result(){
+float Solver_kmeans::get_result(int methode){
     float result = 0.0;
     for(int i = 0; i < (int)solution->size(); i++){
         result += pareto->cost_means((*solution)[i].first, (*solution)[i].second);

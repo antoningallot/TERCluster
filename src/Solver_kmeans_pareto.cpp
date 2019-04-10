@@ -43,7 +43,11 @@ int int_precision (float f){
     return x;
 }
 
-void Solver_kmeans_pareto::K_means_pareto(){
+float Solver_kmeans_pareto::get_result(int methode){
+    // TODO
+}
+
+void Solver_kmeans_pareto::solver(){
     //Initialisation
     vector<Point> centroids(K);
     int M = 0;

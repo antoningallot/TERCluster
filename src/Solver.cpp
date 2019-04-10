@@ -46,7 +46,7 @@ void Solver::write_result(string filename){
     }
 }
 
-float Solver::get_result(){
+float Solver::get_result(int methode){
     return (*DP_matrix)[N][K-1];
 }
 

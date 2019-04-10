@@ -19,8 +19,8 @@ class Solver_kmeans : public Solver_parent{
     Point kmedoids_center(std::vector<int> vect);
     Point kmedian_center(std::vector<int> vect);
     Point discrete_kcenter(std::vector<int> vect);
-    void K_means();
-    float compute_result();
+    void solve(int methode);
+    float get_result(int methode);
 };
 
 #endif
