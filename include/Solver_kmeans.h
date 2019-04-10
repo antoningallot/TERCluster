@@ -15,7 +15,10 @@ class Solver_kmeans : public Solver_parent{
     Solver_kmeans(int n, int k, std::string filename, float s, int m);
     void displayCluster(std::vector<std::vector<int> > vect);
     void write_result(std::string filename);
-    Point cost_means(std::vector<int> vect);
+    Point kmeans_center(std::vector<int> vect);
+    Point kmedoids_center(std::vector<int> vect);
+    Point kmedian_center(std::vector<int> vect);
+    Point discrete_kcenter(std::vector<int> vect);
     void K_means();
     float compute_result();
 };

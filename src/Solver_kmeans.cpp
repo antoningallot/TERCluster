@@ -1,5 +1,6 @@
 #include "Solver_kmeans.h"
 #include <fstream>
+#include<cmath>
 #include<bits/stdc++.h> 
 
 using namespace std;
@@ -63,7 +64,7 @@ void Solver_kmeans::write_result(string filename){
 
 /*** FONCTIONS DE CLUSTERING ***/
 
-Point Solver_kmeans::cost_means(vector<int> vect){
+Point Solver_kmeans::kmeans_center(vector<int> vect){
     Point p(0,0);
     float cpt = 0.0;
     for(int j= 0; j < static_cast<int>(vect.size()); j++){
@@ -72,6 +73,79 @@ Point Solver_kmeans::cost_means(vector<int> vect){
     }
     p.multInt(1.0/cpt);
     return p;
+}
+
+Point Solver_kmeans::kmedoids_center(vector<int> vect){
+    float min = 1000.0;
+    int value = 0;
+    int center;
+    float distance_cost;
+    for(int i= 0; i < static_cast<int>(vect.size()); i++){
+        center = vect[i];
+        distance_cost = 0;
+        for(int j= 0; j < static_cast<int>(vect.size()); j++){
+            distance_cost += pow(pareto->getPoint(center).distance(pareto->getPoint(vect[j])),2.0);
+        }
+        if(distance_cost<min){
+            value = center;
+            min = distance_cost;
+        }
+    }
+    return pareto->getPoint(value);
+}
+
+Point Solver_kmeans::kmedian_center(vector<int> vect){
+    float min = 1000.0;
+    int value = 0;
+    int center;
+    float distance_cost;
+    for(int i= 0; i < static_cast<int>(vect.size()); i++){
+        center = vect[i];
+        distance_cost = 0;
+        for(int j= 0; j < static_cast<int>(vect.size()); j++){
+            distance_cost += pareto->getPoint(center).distance(pareto->getPoint(vect[j]));
+        }
+        if(distance_cost<min){
+            value = center;
+            min = distance_cost;
+        }
+    }
+    return pareto->getPoint(value);
+}
+
+Point Solver_kmeans::discrete_kcenter(vector<int> vect){
+    int extr1, extr2;
+    float dist;
+    int value = 0;
+    for(int i= 0; i < static_cast<int>(vect.size()); i++){
+        for(int j= 0; i < static_cast<int>(vect.size()); i++){
+            dist = pareto->getPoint(vect[i]).distance(pareto->getPoint(vect[j]));
+            if(dist>value){
+                value = dist;
+                extr1 = i;
+                extr2 = j;
+            }
+        }
+    }
+    int center = 0;
+    float d1,d2;
+    for(int i= 0; i < static_cast<int>(vect.size()); i++){
+        d1 = pareto->getPoint(vect[i]).distance(pareto->getPoint(extr1));
+        d2 = pareto->getPoint(vect[i]).distance(pareto->getPoint(extr2));
+        if(d1>d2){
+            if (d1<value){
+                center = i;
+                value = d1;
+            }
+        }
+        else{
+            if (d2<value){
+                center = i;
+                value = d2;
+            }
+        }
+    }
+    return pareto->getPoint(center);
 }
 
 void Solver_kmeans::K_means(){
@@ -102,7 +176,7 @@ void Solver_kmeans::K_means(){
         }
         //Update
         for(int c=0;c<K;c++){
-            centroids[c] = cost_means(cluster[c]);
+            centroids[c] = kmedoids_center(cluster[c]);
         }
         new_epsilon = 0;
         for(int c=0;c<K;c++){
@@ -110,19 +184,7 @@ void Solver_kmeans::K_means(){
                 new_epsilon += pareto->getPoint(j).distance(centroids[c]);
             }
         }
-        //cout<<endl;
-
-        // for(int i=0; i<static_cast<int>(cluster.size()); i++){
-            // cout <<"[";
-            // for(int j=0; j<static_cast<int>(cluster[i].size()); j++){
-                // cout<< cluster[i][j] << " ";
-            // }
-            // cout << "]" << endl;
-        // }
-        // cout<<endl;
-        //Solution
-        // cout << M << " " << (new_epsilon-old_epsilon) << "\n";
-        if(maxinter<=M || (abs(new_epsilon-old_epsilon)<seuil)){
+        if(maxinter==M || (abs(new_epsilon-old_epsilon)<=seuil)){
             for(int I=0; I<K;I++){
                 int max = -1;
                 int min = N+1;
@@ -146,3 +208,16 @@ float Solver_kmeans::compute_result(){
     }
     return result;
 }
+
+       //cout<<endl;
+
+        // for(int i=0; i<static_cast<int>(cluster.size()); i++){
+            // cout <<"[";
+            // for(int j=0; j<static_cast<int>(cluster[i].size()); j++){
+                // cout<< cluster[i][j] << " ";
+            // }
+            // cout << "]" << endl;
+        // }
+        // cout<<endl;
+        //Solution
+        // cout << M << " " << (new_epsilon-old_epsilon) << "\n";
