@@ -58,12 +58,12 @@ int main (int argc, char *argv[]) {
         chrono::duration<double> elapsed_DP = finish_DP - start_DP;
 
         // Result Solver1
-        float result_DP = DP.get_result(methode_code); 
+        float result_DP = DP.get_result();
         
         // Cout results Solver DP to CompletedProcess
         cout << elapsed_DP.count() << endl; // Temps d'exécution solver DP
-        // cout << (result_DP - result_DP) / result_DP << endl; // Cout solver DP
-        cout << result_DP << endl;
+        cout << (result_DP - result_DP) / result_DP << endl; // Cout solver DP
+        // cout << result_DP << endl;
 
         // cout << "Début solve k-means" << endl;
 
@@ -83,8 +83,8 @@ int main (int argc, char *argv[]) {
         
         // Cout results Solver k-means to CompletedProcess
         cout << elapsed_km.count() << endl; // Temps d'exécution du solver k-means
-        // cout <<  (result_km - result_DP) / result_DP << endl; // Cout du solver k-means
-        cout << result_km << endl;
+        cout <<  (result_km - result_DP) / result_DP << endl; // Cout du solver k-means
+        // cout << result_km << endl;
 
 
         // cout << "Début solve k-means pareto" << endl;
@@ -105,13 +105,13 @@ int main (int argc, char *argv[]) {
         
         // Cout results Solver k-means pareto to CompletedProcess
         cout << elapsed_km_pareto.count() << endl; // Temps d'exécution du solver k-means pareto
-        // cout <<  (result_km_pareto - result_DP) / result_DP << endl; // Cout du solver k-means pareto
-        cout <<  result_km_pareto << endl;
+        cout <<  (result_km_pareto - result_DP) / result_DP << endl; // Cout du solver k-means pareto
+        // cout <<  result_km_pareto << endl;
 
 
         // rtrim(filename);
         // filename = filename + "_result.txt";
-        // km.write_result(filename);
+        // DP.write_result(filename);
     }
     
     return 0;

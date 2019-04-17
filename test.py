@@ -38,4 +38,4 @@ for filename in os.listdir(directory):
 
 f.close()
 
-subprocess.run("rm -rf "+ directory+"/*.txt", shell=True)
+#subprocess.run("rm -rf "+ directory+"/*.txt", shell=True)

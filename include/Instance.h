@@ -25,12 +25,13 @@ class Instance {
     void displayMatrix();
     void initMatrix();
 //Calcul avec matrice
+/*
     float cost_median_matrix(int i, int iprime);
     float cost_means_matrix(int i, int iprime);
     float cost_medoids_matrix(int i, int iprime);
     float cost_dcenter_matrix(int i, int iprime);
     float cost_dcenterv2_matrix(int i, int iprime);
-    float cost_ccenter_matrix(int i, int iprime);
+    float cost_ccenter_matrix(int i, int iprime);*/
 //Calcul sans matrice    
     float cost_median(int i, int iprime);
     float cost_means(int i, int iprime);

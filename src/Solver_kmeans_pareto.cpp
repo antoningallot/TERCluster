@@ -32,7 +32,6 @@ Point Solver_kmeans_pareto::cost_means(pair<int,int> pair){
         cpt ++;
     }
     p.multInt(1.0/cpt);
-    p.display();
     return p;
 }
 
