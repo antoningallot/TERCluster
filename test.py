@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import os
+from create_data import *
 
 directory = sys.argv[1]
 N = sys.argv[2]
@@ -8,10 +9,16 @@ K = sys.argv[3]
 method = sys.argv[4]
 seuil = sys.argv[5]
 maxiter = sys.argv[6]
+nb_inst = sys.argv[7]
 
+# On créé 20 instances avec ces paramètres
+create_mult_data(directory, int(N), 0, 100, 0.5, 250, 250, int(nb_inst))
+
+# Création du fichier de résultat 
 result_filename = "Result_" + directory + ".csv"
 f = open(result_filename, "w")
-f.write("N;K;Méthode;Seuil;Maxiter;Temps Solver DP;Cout Solver DP;Temps Solver k-means;Cout Solver k-means;Temps Solver k-mean pareto;Cout solver k-means pareto;\n")
+f.write("N;K;Méthode;Seuil;Maxiter;Temps Solver DP;Surcout Solver DP;Temps Solver k-means;Surcout Solver k-means;Temps Solver k-mean pareto;Surcout solver k-means pareto;\n")
+
 
 for filename in os.listdir(directory):
     print(filename)
@@ -30,3 +37,5 @@ for filename in os.listdir(directory):
     # print(output.stdout)
 
 f.close()
+
+subprocess.run("rm -rf "+ directory+"/*.txt", shell=True)
