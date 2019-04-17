@@ -168,7 +168,6 @@ void Solver_kmeans::solve(int methode){
     for(int c=0; c<K;c++){centroids[c]= pareto->getPoint(rand()%N);}
     //Assignation
     while(maxinter>M && (abs(new_epsilon-old_epsilon)>seuil)){
-        cout<<M<<endl;
         old_epsilon = new_epsilon;
         M += 1;
         vector<vector<int> > cluster(K, vector<int>());
@@ -204,12 +203,6 @@ void Solver_kmeans::solve(int methode){
                 }
                 break;
             case 4:
-                for(int c=0;c<K;c++){
-                    centroids[c] = dcenter(cluster[c]);
-                }
-                break;
-            case 5:
-                cout<<"Warning : DCenterv2 ne peut etre utilise dans une instance non-pareto, utilisation de dcenter à la place."<<endl;
                 for(int c=0;c<K;c++){
                     centroids[c] = dcenter(cluster[c]);
                 }

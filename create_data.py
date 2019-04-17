@@ -119,18 +119,24 @@ def mult_instances_alea_box(N, A, B, p):
         data = generate_coords_alea_box(N, A, B)
         create_file_alea_box(N, A, B, data, i)
 
-def create_data(N, a, b, alpha, A, B, p):
-    mult_instances_convex(N, a, b, alpha, p)
-    mult_instances_concav(N, a, b, alpha, p)
-    mult_instances_alea(N, A, B, p)
-    mult_instances_alea_box(N, A, B, p)
+def create_mult_data(methode, N, a, b, alpha, A, B, p):
+    if methode == "dataConvex":
+        mult_instances_convex(N, a, b, alpha, p)
+    elif methode == "dataConcav":
+        mult_instances_concav(N, a, b, alpha, p)
+    elif methode == "dataAlea":
+        mult_instances_alea(N, A, B, p)
+    elif methode == "dataAleaBox":
+        mult_instances_alea_box(N, A, B, p)
+    else :
+        print("Méthode de génération inconnue")
 
-nb_points = int(sys.argv[1])
-a = int(sys.argv[2])
-b = int(sys.argv[3])
-alpha = float(sys.argv[4])
-A = int(sys.argv[5])
-B = int(sys.argv[6])
-nb_fichiers = int(sys.argv[7])
+# nb_points = int(sys.argv[1])
+# a = int(sys.argv[2])
+# b = int(sys.argv[3])
+# alpha = float(sys.argv[4])
+# A = int(sys.argv[5])
+# B = int(sys.argv[6])
+# nb_fichiers = int(sys.argv[7])
 # create_data(nb_points, a, b, alpha, A, B, nb_fichiers)
-mult_instances_alea(nb_points, A, B, nb_fichiers)
+# mult_instances_alea(nb_points, A, B, nb_fichiers)

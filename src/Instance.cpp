@@ -70,7 +70,7 @@ Point Instance::getPoint(int i){ return (*pareto)[i];}
 int Instance::getSize(){ return pareto->size(); }
 
 /*** FONCTIONS DE CALCUL DES COUTS EN UTILISANT LA MATRICE DES DISTANCES ***/ 
-
+/*
 float Instance::cost_means_matrix(int i, int iprime){
     float sum = 0;
     int cpt = 0;
@@ -164,7 +164,7 @@ float Instance::cost_dcenterv2_matrix(int i, int iprime){
 float Instance::cost_ccenter_matrix(int i, int iprime){
     float sum = (*matrix)[i][iprime];
     return 0.5*sqrt(sum);
-}
+}*/
 
 /*** FONCTIONS DE CALCUL DES COUTS SANS UTILISER LA MATRICE DES DISTANCES ***/
 
@@ -175,7 +175,9 @@ float Instance::cost_means(int i, int iprime){
     for(int j= i; j <= iprime; j++){
         p.addPoint(getPoint(j));
     }
-    p.multInt(1/(iprime-i+1));
+
+    p.multInt(1.0/(iprime-i+1));
+
     for(int I = i; I <= iprime; I++){
         sum+= getPoint(I).distance(p);
     }
@@ -184,7 +186,7 @@ float Instance::cost_means(int i, int iprime){
 
 float Instance::cost_medoids(int i, int iprime){
     float min = FLT_MAX;
-    if(i == iprime) {min = 0;}
+    if(i == iprime) {return 0;}
     for(int I = i; I <= iprime; I++){
         float sum = 0;
         for (int j = i; j <= iprime; j++){
@@ -199,13 +201,12 @@ float Instance::cost_medoids(int i, int iprime){
 
 float Instance::cost_median(int i, int iprime){
     float min = FLT_MAX;
-    if(i == iprime) {min = 0;}
+    if(i == iprime) {return 0;}
     for(int I = i; I <= iprime; I++){
         float sum = 0;
         for (int j = i; j <= iprime; j++){
             sum += getPoint(I).distance(getPoint(j));
         }
-        sum = sqrt(sum);
         if (sum < min){
             min = sum;
         }
@@ -215,26 +216,29 @@ float Instance::cost_median(int i, int iprime){
     
 float Instance::cost_dcenter(int i, int iprime){
     float min = FLT_MAX;
-    if(i == iprime) {min = 0;}
+    if(i == iprime) {return 0;}
     for(int j=i; j <= iprime; j++){
-        float sum = 0;
-        if(getPoint(j).distance(getPoint(i))>getPoint(j).distance(getPoint(iprime))){
-            sum = getPoint(j).distance(getPoint(i));
+        float extr = 0;
+        if(getPoint(j).distance(getPoint(i)) > getPoint(j).distance(getPoint(iprime))){
+            extr = getPoint(j).distance(getPoint(i));
         }
         else {
-            sum = getPoint(j).distance(getPoint(iprime));
+            extr = getPoint(j).distance(getPoint(iprime));
         }
-        sum = sqrt(sum);
-        if (sum < min){
-            min = sum;
+        //cout << "Extr : " << extr << endl;
+        //cout << "Min : " << min << endl;
+        if (extr < min){
+            min = extr;
         }
     }
+    //cout << endl;
     return min;
 }
 
 float Instance::cost_dcenterv2(int i, int iprime){
     float min = FLT_MAX;
     int j = i;
+    if(i == iprime) {return 0;}
     while(j< iprime){
         float sum = 0;
         if(getPoint(j).distance(getPoint(i))>getPoint(j).distance(getPoint(iprime))){
@@ -243,7 +247,6 @@ float Instance::cost_dcenterv2(int i, int iprime){
         else {
             sum = getPoint(j).distance(getPoint(iprime));
         }
-        sum = sqrt(sum);
         if (sum < min){
             min = sum;
             i += 1;

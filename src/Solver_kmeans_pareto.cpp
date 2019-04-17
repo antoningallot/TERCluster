@@ -24,16 +24,16 @@ void Solver_kmeans_pareto::write_result(string filename){
     }
 }
 
-// Point Solver_kmeans_pareto::cost_means(pair<int,int> pair){
-//     Point p(0,0);
-//     float cpt = 0.0;
-//     for(int j= pair.first; j<= pair.second; j++){
-//         p.addPoint(pareto->getPoint(j));
-//         cpt ++;
-//     }
-//     p.multInt(1.0/cpt);
-//     return p;
-// }
+Point Solver_kmeans_pareto::cost_means(pair<int,int> pair){
+    Point p(0,0);
+    float cpt = 0.0;
+    for(int j= pair.first; j<= pair.second; j++){
+        p.addPoint(pareto->getPoint(j));
+        cpt ++;
+    }
+    p.multInt(1.0/cpt);
+    return p;
+}
 
 /*** FONCTIONS DE CLUSTERING ***/
 

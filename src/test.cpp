@@ -19,8 +19,8 @@ int main (int argc, char *argv[]) {
     int k = atoi(argv[2]);
     string filename = argv[3];
     string methode = argv[4];
-    float seuil = (float) atoi(argv[5]);
-    int maxiter = atoi(argv[6]);
+    //float seuil = (float) atoi(argv[5]);
+    //int maxiter = atoi(argv[6]);
     int methode_code = 0;
     if (methode == "median"){ methode_code = 1; }
     else if (methode == "means"){ methode_code = 2; }
@@ -32,11 +32,16 @@ int main (int argc, char *argv[]) {
         cout<<"Erreur Methode:  Non assigné"<<endl;
     }
     Solver s(n, k, filename);
-    Solver_kmeans_pareto km(n, k, filename, seuil, maxiter);
-    // cout << "Contructeur fini\n";
-    km.solve(methode_code);
-    km.displaySolution();
+    cout << "Contructeur fini\n";
+    s.solve(methode_code);
+    cout << "Solve fini\n";
+    s.displayMatrix();
+    cout << endl;
+    s.backtrack(methode_code);
+    cout << "Backtrack fini\n";
+    s.displaySolution();
+    cout << s.get_result() << endl;
     rtrim(filename);
     filename = filename + "_result.txt";
-    km.write_result(filename);
+    s.write_result(filename);
 }

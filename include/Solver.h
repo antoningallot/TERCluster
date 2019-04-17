@@ -21,7 +21,7 @@ class Solver : public Solver_parent {
     void initMatrix();
     void displayMatrix();
     void write_result(std::string filename);
-    float get_result(int methode);
+    float get_result();
     float min_DP(int i, int k, int methode);
     void solve(int methode);
     void backtrack(int methode);
