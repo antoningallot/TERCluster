@@ -2,6 +2,7 @@
 #include <chrono>
 #include "Solver.h"
 #include "Solver_kmeans.h"
+#include "Solver_kmeans_pareto.h"
 #include <experimental/filesystem>
  
 using namespace std;
@@ -31,7 +32,7 @@ int main (int argc, char *argv[]) {
         cout<<"Erreur Methode:  Non assigné"<<endl;
     }
     Solver s(n, k, filename);
-    Solver_kmeans km(n, k, filename, seuil, maxiter);
+    Solver_kmeans_pareto km(n, k, filename, seuil, maxiter);
     // cout << "Contructeur fini\n";
     km.solve(methode_code);
     km.displaySolution();
