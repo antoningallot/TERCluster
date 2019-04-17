@@ -207,6 +207,11 @@ void Solver_kmeans::solve(int methode){
                     centroids[c] = dcenter(cluster[c]);
                 }
                 break;
+            case 5:
+                for(int c=0;c<K;c++){
+                    centroids[c] = dcenter(cluster[c]);
+                }
+                break;
             case 6:
             for(int c=0;c<K;c++){
                 centroids[c] = ccenter(cluster[c]);
