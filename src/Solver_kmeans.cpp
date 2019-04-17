@@ -204,6 +204,15 @@ void Solver_kmeans::solve(int methode){
                 break;
             case 4:
                 for(int c=0;c<K;c++){
+<<<<<<< HEAD
+=======
+                    centroids[c] = dcenter(cluster[c]);
+                }
+                break;
+            case 5:
+                cout<<"Warning : DCenterv2 ne peut etre utilise dans une instance non-pareto, utilisation de dcenter à la place."<<endl;
+                for(int c=0;c<K;c++){
+>>>>>>> a27735be69090d1128db488dd0894ecf9c9984e8
                     centroids[c] = dcenter(cluster[c]);
                 }
                 break;
