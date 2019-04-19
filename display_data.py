@@ -30,14 +30,14 @@ def belongs(i, cluster):
 def display(points, clusters):
     cpt = 0
     # clust = clusters[cpt]
-    color = (random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1))
+    color = [[random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1)]]
     fig = plt.figure()
     ax = fig.add_subplot(111)
     for i,p in enumerate(points):
         if(not belongs(i, clusters[cpt]) ):
             # print(i)
             cpt += 1
-            color = (random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1))
+            color = [[random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1)]]
         ax.scatter(p[0], p[1], c=color)
     # plt.plot(xlist, ylist, 'k.')
     plt.show()

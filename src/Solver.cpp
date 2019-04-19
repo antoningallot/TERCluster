@@ -93,11 +93,13 @@ float Solver::min_DP(int i, int k, int methode){
             case 4:
             min = (*DP_matrix)[1][k-1] + pareto->cost_dcenter(0, i-1);
             for (index j = 2; j <= i; j++){
+                // cout << "Cost : " << j << " " << i << " " << pareto->cost_dcenter((int)j-1, i-1) << endl;
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_dcenter((int)j-1, i-1);
                 if(tmp < min){
                     min = tmp;
                 }
             }
+            //cout << endl;
             break;
             // return min_dcenter;
 
@@ -117,7 +119,7 @@ float Solver::min_DP(int i, int k, int methode){
             for (index j = 2; j <= i; j++){
                 tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_ccenter((int)j-1, i-1);
                 if(tmp < min){
-                    min = min;
+                    min = tmp;
                 }
             }
             break;
@@ -239,8 +241,8 @@ void Solver::backtrack(int methode){
         case 4:
         for (index k = K-1; k > 0; k--){
             for (index j = 1; j <= i; j++){
-                tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_dcenter((int)j-1, i-1);
-                if((*DP_matrix)[i][k] == tmp){
+                // tmp = (*DP_matrix)[j-1][k-1] + pareto->cost_dcenter((int)j-1, i-1);
+                if((*DP_matrix)[i][k] == (*DP_matrix)[j-1][k-1] + pareto->cost_dcenter((int)j-1, i-1)){
                     pair = make_pair(i-1, j-1);
                     solution->push_back(pair);
                     i = (int)j-1;

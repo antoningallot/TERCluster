@@ -260,5 +260,5 @@ float Instance::cost_dcenterv2(int i, int iprime){
 
 float Instance::cost_ccenter(int i, int iprime){
     float sum = getPoint(i).distance(getPoint(iprime));
-    return 0.5*sqrt(sum);
+    return 0.5*sum;
 }

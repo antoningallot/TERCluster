@@ -33,6 +33,7 @@ int main (int argc, char *argv[]) {
     }
     Solver s(n, k, filename);
     cout << "Contructeur fini\n";
+    //s.displayPareto();
     s.solve(methode_code);
     cout << "Solve fini\n";
     s.displayMatrix();
