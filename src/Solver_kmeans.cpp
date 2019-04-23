@@ -188,7 +188,7 @@ void Solver_kmeans::solve(int methode){
         }
         centroids[c] = centre;
     }
-    // display_vect_points(centroids);
+    // display_vect_points_pareto(centroids);
     //Assignation
     while(maxinter>M && (abs(new_epsilon-old_epsilon)>seuil)){
         old_epsilon = new_epsilon;
