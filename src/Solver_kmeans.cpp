@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cmath>
 #include <bits/stdc++.h>
+#include <time.h>
 
 using namespace std;
 
@@ -35,6 +36,13 @@ void display_vect(vector<int> v){
     cout << "\n";
 }
 
+void display_vect_points(vector<Point> v){
+    for (int i = 0; i < (int)v.size(); i++){
+        v[i].display();
+    }
+    cout << "\n";
+}
+
 void display_points(vector<Point> v){
     for (int i = 0; i < (int)v.size(); i++){
         v[i].display();
@@ -50,6 +58,15 @@ void display_clusters(vector<vector<int> > v){
         }
         cout << "\n";
     }
+}
+
+bool Solver_kmeans::belongs(Point p, vector<Point> v){
+    for (int i = 0; i < (int)v.size(); i++){
+        if(p.equals(v[i])){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Solver_kmeans::write_result(string filename){
@@ -156,16 +173,22 @@ Point Solver_kmeans::ccenter(vector<int> vect){
     return p;
 }
 
-
 void Solver_kmeans::solve(int methode){
-    //Initialisation
-    
+    //Initialisation   
+    srand (time(NULL));
     vector<Point> centroids(K);
     int M = 0;
     float new_epsilon = 0;
     float old_epsilon = FLT_MAX;
     pair<int, int> pair;
-    for(int c=0; c<K;c++){centroids[c]= pareto->getPoint(rand()%N);}
+    for(int c=0; c<K;c++){
+        Point centre = pareto->getPoint(rand()%N);
+        while (belongs(centre, centroids)){
+            centre = pareto->getPoint(rand()%N);
+        }
+        centroids[c] = centre;
+    }
+    // display_vect_points(centroids);
     //Assignation
     while(maxinter>M && (abs(new_epsilon-old_epsilon)>seuil)){
         old_epsilon = new_epsilon;
@@ -184,6 +207,7 @@ void Solver_kmeans::solve(int methode){
             }
             cluster[min].push_back(j);
         }
+        // if (M==1){ display_clusters(cluster);}
         //Update
         
         switch (methode){
@@ -221,13 +245,19 @@ void Solver_kmeans::solve(int methode){
                 break;
         }
 
+        // display_vect_points(centroids);
+        // display_clusters(cluster);
+
         new_epsilon = 0;
         for(int c=0;c<K;c++){
             for(int j=0; j<static_cast<int>(cluster[c].size());j++){
                 new_epsilon += pareto->getPoint(j).distance(centroids[c]);
             }
         }
-        if(maxinter==M || (abs(new_epsilon-old_epsilon)<=seuil)){
+
+
+        if(maxinter==M){
+            cout << "Iter\n";
             for(int I=0; I<K;I++){
                 int max = -1;
                 int min = N+1;
@@ -240,6 +270,19 @@ void Solver_kmeans::solve(int methode){
             }
         }
         
+        if((abs(new_epsilon-old_epsilon)<=seuil)){
+            cout << "Seuil\n";
+            for(int I=0; I<K;I++){
+                int max = -1;
+                int min = N+1;
+                for(int j=0; j<static_cast<int>(cluster[I].size());j++){
+                    if(min>cluster[I][j]){min = cluster[I][j];}
+                    if(max<cluster[I][j]){max = cluster[I][j];}
+                }
+                pair = make_pair(min,max);
+                solution->push_back(pair);
+            }
+        }
 
     }
 }

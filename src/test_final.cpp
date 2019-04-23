@@ -82,7 +82,7 @@ int main (int argc, char *argv[]) {
         float result_km = km.get_result(methode_code);
         
         // Cout results Solver k-means to CompletedProcess
-        cout << elapsed_km.count() << endl; // Temps d'exécution du solver k-means
+        cout << elapsed_DP.count() - elapsed_km.count() << endl; // Temps d'exécution du solver k-means
         cout <<  (result_km - result_DP) / result_DP << endl; // Cout du solver k-means
         // cout << result_km << endl;
 
@@ -104,7 +104,7 @@ int main (int argc, char *argv[]) {
         float result_km_pareto = km_pareto.get_result(methode_code);
         
         // Cout results Solver k-means pareto to CompletedProcess
-        cout << elapsed_km_pareto.count() << endl; // Temps d'exécution du solver k-means pareto
+        cout << elapsed_DP.count() - elapsed_km_pareto.count() << endl; // Temps d'exécution du solver k-means pareto
         cout <<  (result_km_pareto - result_DP) / result_DP << endl; // Cout du solver k-means pareto
         // cout <<  result_km_pareto << endl;
 

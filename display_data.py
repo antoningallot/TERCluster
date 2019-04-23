@@ -43,7 +43,8 @@ def display(points, clusters):
     plt.show()
     
 filename_points = str(sys.argv[1])
-filename_results = filename_points[:len(filename_points)-4] + "_result.txt"
+# filename_results = filename_points[:len(filename_points)-4] + "_result.txt"
+filename_results = str(sys.argv[2])
 points = get_points(filename_points)
 clusters = get_clusters(filename_results)
 display(points, clusters)

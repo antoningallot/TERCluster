@@ -10,6 +10,10 @@ void Point::display(){
     cout << "x:" << x << ", y:" << y << "\n";
 }
 
+bool Point::equals(Point p){
+    return (x == p.x && y == p.y);
+}
+
 float Point::distance(Point i){
     return sqrt(pow((x-i.x),2.0)+pow((y-i.y),2.0));
 }

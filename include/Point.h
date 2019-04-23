@@ -12,6 +12,7 @@ class Point {
     Point();
     Point(float abs, float ord);
     void display();
+    bool equals(Point p);
     float distance(Point i);
     void addPoint(Point i);
     void multInt(float val);
