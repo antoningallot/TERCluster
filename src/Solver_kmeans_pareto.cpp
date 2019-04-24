@@ -14,26 +14,21 @@ Solver_kmeans_pareto::Solver_kmeans_pareto(int n, int k, string filename, float 
     maxinter = m;
 }
 
-void Solver_kmeans_pareto::write_result(string filename){
-    ofstream file(filename.c_str());
-    if(file.is_open()){
-        for(int i = solution->size()-1; i >= 0; i--){
-            file << (*solution)[i].first << " " << (*solution)[i].second << "\n";
-        }
-        file.close();
+/*** QUELQUES FONCTIONS AUXILIAIRES D'AFFICHAGE POUR LE DEBUG ***/
+
+void display_vect_points_pareto(vector<Point> v){
+    for (int i = 0; i < (int)v.size(); i++){
+        v[i].display();
     }
+    cout << "\n";
 }
 
-// Point Solver_kmeans_pareto::cost_means(pair<int,int> pair){
-//     Point p(0,0);
-//     float cpt = 0.0;
-//     for(int j= pair.first; j<= pair.second; j++){
-//         p.addPoint(pareto->getPoint(j));
-//         cpt ++;
-//     }
-//     p.multInt(1.0/cpt);
-//     return p;
-// }
+void display_clusters(vector< pair<int, int> > v){
+    for (int i = 0; i < (int)v.size(); i++){
+        cout << v[i].first << " " << v[i].second << endl;
+    }
+    cout << "\n";
+}
 
 /*** FONCTIONS DE CLUSTERING ***/
 
@@ -135,20 +130,6 @@ int int_precision (float f){
     return x;
 }
 
-void display_vect_points_pareto(vector<Point> v){
-    for (int i = 0; i < (int)v.size(); i++){
-        v[i].display();
-    }
-    cout << "\n";
-}
-
-void display_clusters(vector< pair<int, int> > v){
-    for (int i = 0; i < (int)v.size(); i++){
-        cout << v[i].first << " " << v[i].second << endl;
-    }
-    cout << "\n";
-}
-
 
 void Solver_kmeans_pareto::solve(int methode){
     //Initialisation
@@ -159,12 +140,10 @@ void Solver_kmeans_pareto::solve(int methode){
     vector<pair<int, int> > cluster (K);
     for(int c=0; c<K;c++){
         int x = int_precision((c+1)*((float)N/((float)K+1)));
-        //cout<<"Centre: "<<x<<endl;
         centroids[c]= pareto->getPoint(x);
     }
-    display_vect_points_pareto(centroids);
+
     //Assignation
-    //cout<<"Assignation"<<endl;
     while(maxinter>M && (abs(new_epsilon-old_epsilon)>seuil)){
         old_epsilon = new_epsilon;
         M += 1;
@@ -172,10 +151,10 @@ void Solver_kmeans_pareto::solve(int methode){
             int min = 0;
             int max = 0;
             int centre = 0;
-            int cpt = 1;
+            
             for(int j=0;j<K-1;j++){
+                int cpt = 1;
                 centre = int_precision(((j+1)*((float)N/((float)K+1))+(j+2)*((float)N/((float)K+1)))/2);
-                //cout<<"Centre: "<<centre<<endl;
                 if(pareto->getPoint(centre).distance(centroids[j]) < pareto->getPoint(centre).distance(centroids[j+1])){
                     while(pareto->getPoint(centre+cpt).distance(centroids[j]) < pareto->getPoint(centre+cpt).distance(centroids[j+1])){
                         cpt += 1;
@@ -183,7 +162,6 @@ void Solver_kmeans_pareto::solve(int methode){
                     max = centre+cpt-1;
                     pair<int, int> pair;
                     pair = make_pair(min,max);
-                    //cout<<"Min: "<<min<<" Max: "<<max<<endl;
                     cluster[j] =pair;
                     min = centre+cpt;
                 }
@@ -194,24 +172,20 @@ void Solver_kmeans_pareto::solve(int methode){
                     max = centre-cpt;
                     pair<int, int> pair;
                     pair = make_pair(min,max);
-                    //cout<<"Min: "<<min<<" Max: "<<max<<endl;
                     cluster[j] =pair;
                     min = centre-cpt+1;
                 }
-                cpt = 1;
                 
             }
             pair<int, int> pair;
             pair = make_pair(min,N-1);
             cluster[K-1] =pair;
-            //cout<<"Min: "<<min<<" Max: "<<N-1<<endl;
 
         }
         else{
             int centre = 0;
             for(int j=0;j<K;j++){
                 int cpt = 1;
-                //cout<<"Before : Min: "<<cluster[j].first<<" Max: "<<cluster[j].second<<endl;
                 centre = cluster[j].second;
                 if(pareto->getPoint(centre+1).distance(centroids[j]) < pareto->getPoint(centre+1).distance(centroids[j+1])){
                     centre = centre+1;
@@ -228,12 +202,10 @@ void Solver_kmeans_pareto::solve(int methode){
                     cluster[j].second=centre-cpt;
                     cluster[j+1].first=centre-cpt+1;
                 }
-                //cout<<"After : Min: "<<cluster[j].first<<" Max: "<<cluster[j].second<<endl;
-                // cpt = 1;
             }
         }
+
         //Update
-        //cout<<"Update"<<endl;
         switch (methode){
             case 1:
                 for(int c=0;c<K;c++){
@@ -268,9 +240,6 @@ void Solver_kmeans_pareto::solve(int methode){
             default:
                 break;
         }
-
-        // display_clusters(cluster);
-        // display_vect_points_pareto(centroids);
         
 
         new_epsilon = 0;
@@ -279,13 +248,9 @@ void Solver_kmeans_pareto::solve(int methode){
                 new_epsilon += pareto->getPoint(j).distance(centroids[c]);
             }
         }
+
         //Solution
-        if(maxinter==M){
-            cout << "Iter\n";
-            *solution = cluster;
-        }
-        if((abs(new_epsilon-old_epsilon)<=seuil)){
-            cout << "Seuil\n";
+        if(maxinter==M || (abs(new_epsilon-old_epsilon)<=seuil)){
             *solution = cluster;
         }
     }

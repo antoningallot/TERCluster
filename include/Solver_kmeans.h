@@ -15,7 +15,6 @@ class Solver_kmeans : public Solver_parent{
     Solver_kmeans(int n, int k, std::string filename, float s, int m);
     void displayCluster(std::vector<std::vector<int> > vect);
     bool belongs(Point p, std::vector<Point> v);
-    void write_result(std::string filename);
     Point kmeans_center(std::vector<int> vect);
     Point kmedoids_center(std::vector<int> vect);
     Point kmedian_center(std::vector<int> vect);

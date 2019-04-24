@@ -31,26 +31,25 @@ int main (int argc, char *argv[]) {
     else {
         cout<<"Erreur Methode:  Non assigné"<<endl;
     }
+    Solver DP(n, k, filename);
     Solver_kmeans km(n, k, filename, seuil, maxiter);
     Solver_kmeans_pareto km_pareto(n, k, filename, seuil, maxiter);
     cout << "Contructeur fini\n";
     //s.displayPareto();
+    DP.solve(methode_code);
+    DP.backtrack(methode_code);
     km.solve(methode_code);
     cout << "Solve normal fini\n";
     km_pareto.solve(methode_code);
     cout << "Solve pareto fini\n";
     //sp.displayMatrix();
-    cout << endl;
     //s.backtrack(methode_code);
     cout << "Backtrack fini\n";
-    km.displaySolution();
-    cout << endl;
-    km_pareto.displaySolution();
+    // km.displaySolution();
+    // km_pareto.displaySolution();
     // cout << sp.get_result(methode_code) << endl;
-    rtrim(filename);
-    string filename_Lloyd = filename + "_resultLloyd.txt";
-    string filename_pareto = filename + "_resultPareto.txt";
-    km.write_result(filename_Lloyd);
-    km_pareto.write_result(filename_pareto);
+    // rtrim(filename);
+    // filename = filename + "_result.txt";
+    // km.write_result(filename);
     
 }

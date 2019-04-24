@@ -17,7 +17,7 @@ Solver_kmeans::Solver_kmeans(int n, int k, string filename, float s, int m){
     maxinter = m;
 }
 
-/*** FONCTIONS AUXILIAIRES POUR LA MANIPULATION ***/
+/*** FONCTIONS AUXILIAIRES D'AFFICHAGES POUR LE DEBUG ***/
 
 void Solver_kmeans::displayCluster(vector<vector<int> > vect){
     for(int i=0; i<static_cast<int>(vect.size()); i++){
@@ -60,6 +60,11 @@ void display_clusters(vector<vector<int> > v){
     }
 }
 
+
+
+
+/*** FONCTIONS DE CLUSTERING ***/
+
 bool Solver_kmeans::belongs(Point p, vector<Point> v){
     for (int i = 0; i < (int)v.size(); i++){
         if(p.equals(v[i])){
@@ -68,18 +73,6 @@ bool Solver_kmeans::belongs(Point p, vector<Point> v){
     }
     return false;
 }
-
-void Solver_kmeans::write_result(string filename){
-    ofstream file(filename.c_str());
-    if(file.is_open()){
-        for(int i = solution->size()-1; i >= 0; i--){
-            file << (*solution)[i].first << " " << (*solution)[i].second << "\n";
-        }
-        file.close();
-    }
-}
-
-/*** FONCTIONS DE CLUSTERING ***/
 
 Point Solver_kmeans::kmeans_center(vector<int> vect){
     Point p(0,0);
@@ -256,8 +249,7 @@ void Solver_kmeans::solve(int methode){
         }
 
 
-        if(maxinter==M){
-            cout << "Iter\n";
+        if(maxinter==M || (abs(new_epsilon-old_epsilon)<=seuil)){
             for(int I=0; I<K;I++){
                 int max = -1;
                 int min = N+1;
@@ -270,20 +262,6 @@ void Solver_kmeans::solve(int methode){
             }
         }
         
-        if((abs(new_epsilon-old_epsilon)<=seuil)){
-            cout << "Seuil\n";
-            for(int I=0; I<K;I++){
-                int max = -1;
-                int min = N+1;
-                for(int j=0; j<static_cast<int>(cluster[I].size());j++){
-                    if(min>cluster[I][j]){min = cluster[I][j];}
-                    if(max<cluster[I][j]){max = cluster[I][j];}
-                }
-                pair = make_pair(min,max);
-                solution->push_back(pair);
-            }
-        }
-
     }
 }
 

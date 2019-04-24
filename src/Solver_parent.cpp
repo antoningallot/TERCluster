@@ -36,3 +36,13 @@ int Solver_parent::getSize(){
 }
 
 void Solver_parent::solve(int methode){ };
+
+void Solver_parent::write_result(string filename){
+    ofstream file(filename.c_str());
+    if(file.is_open()){
+        for(int i = solution->size()-1; i >= 0; i--){
+            file << (*solution)[i].first << " " << (*solution)[i].second << "\n";
+        }
+        file.close();
+    }
+}
