@@ -15,10 +15,12 @@ typedef array_type::index index;
 class Solver : public Solver_parent {
     private:
     array_type *DP_matrix;
+    array_type *cost_matrix;
 
     public:
     Solver(int n, int k, std::string filename);
-    void initMatrix();
+    void initDPMatrix();
+    void initcostMatrix();
     void displayMatrix();
     void write_result(std::string filename);
     float get_result();

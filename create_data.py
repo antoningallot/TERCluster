@@ -131,8 +131,6 @@ def create_mult_data(methode, N, a, b, alpha, A, B, p):
     else :
         print("Méthode de génération inconnue")
 
-mult_instances_alea_box(10, 0, 100, 1)
-
 # nb_points = int(sys.argv[1])
 # a = int(sys.argv[2])
 # b = int(sys.argv[3])

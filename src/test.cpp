@@ -37,14 +37,15 @@ int main (int argc, char *argv[]) {
     cout << "Contructeur fini\n";
     //s.displayPareto();
     DP.solve(methode_code);
+    cout << "Solve fini\n";
     DP.backtrack(methode_code);
+    cout << "Backtrack fini\n";
     km.solve(methode_code);
-    cout << "Solve normal fini\n";
+    cout << "Lloyd fini\n";
     km_pareto.solve(methode_code);
-    cout << "Solve pareto fini\n";
+    cout << "Lloyd pareto fini\n";
     //sp.displayMatrix();
     //s.backtrack(methode_code);
-    cout << "Backtrack fini\n";
     // km.displaySolution();
     // km_pareto.displaySolution();
     // cout << sp.get_result(methode_code) << endl;
